@@ -74,7 +74,7 @@ export const pageslinks = [
   {
     id: 2,
     name: "Accessories",
-    pages: ["all", "tops", "shirtblouses", "trousers", "dresses"],
+    pages: ["all", "trousers", "dresses"],
   },
   {
     id: 3,

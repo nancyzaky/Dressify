@@ -166,7 +166,7 @@ a {
 }
 .shadow {
   background: #eee;
-  box-shadow: 0 10px 10px -8px lightblue;
+  box-shadow: 0 10px 10px 4px rgb(228, 203, 233);
   display: inline-block;
   margin-left: 3rem;
 
@@ -178,6 +178,7 @@ a {
   border-color: transparent;
   padding: 1rem 1rem;
   transition: transform 0.2s;
+  border-radius: 0.3rem;
   /* background-color: white; */
   /* transition: var(--transition); */
 }

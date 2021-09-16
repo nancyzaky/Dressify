@@ -6,7 +6,7 @@ import { NavContext } from "./Context.js";
 const Nav = ({ switchWoman, switchMan, woman, man }) => {
   const { openSubMenu, closeSubMenu, subMenuOpen } = useContext(NavContext);
   const handleHover = (e) => {
-    let text = e.target.textContent.toString();
+    let text = e.target.textContent;
     let loc = e.target.getBoundingClientRect();
     let center = (loc.left + loc.right) / 2;
     let bottom = loc.bottom + 30;
@@ -88,7 +88,6 @@ const Nav = ({ switchWoman, switchMan, woman, man }) => {
                   onMouseOut={handleMouseLeave}
                 >
                   {link.text}
-                  <span> {link.icon}</span>
                 </Link>
               );
             })}

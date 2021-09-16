@@ -1,5 +1,6 @@
 import React from "react";
 import Picture from "./Picture";
+import { AiFillHeart } from "react-icons/ai";
 const Product = ({ item, showModal }) => {
   return (
     <li className="shadow">
@@ -10,6 +11,10 @@ const Product = ({ item, showModal }) => {
         return <h4>{color}</h4>;
       })} */}
       <button onClick={showModal}>Drag And Drop</button>
+      <button> Add To Cart</button>
+      <button>
+        <AiFillHeart />
+      </button>
     </li>
   );
 };

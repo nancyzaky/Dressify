@@ -9,13 +9,23 @@ const SubMenu = () => {
     const { center, bottom } = location;
     asideMeasurements.current.style.left = `${center}px`;
     asideMeasurements.current.style.top = `${bottom}px`;
-    // console.log(links.allpages);
+    console.log(links.allpages);
   }, [location]);
   return (
     <aside
       className={`${subMenuOpen ? "submenu show" : "submenu"}`}
       ref={asideMeasurements}
-    ></aside>
+    >
+      <ul>
+        {links.allpages.pages.map((link) => {
+          return (
+            <li>
+              <p style={{ color: "black" }}>{link}</p>
+            </li>
+          );
+        })}
+      </ul>
+    </aside>
   );
 };
 

@@ -8,9 +8,9 @@ const NavProvider = ({ children }) => {
   const [links, setLinks] = useState({ page: "", allpages: [] });
   const [subMenuOpen, setSubMenuOpen] = useState(false);
   const openSubMenu = (obj, cont) => {
-    const result = pageslinks.find((item) => item.name === "cont");
-    console.log(result);
+    const result = pageslinks.find((item) => item.name === "Shoes");
     setLocation(obj);
+    setLinks({ page: cont, allpages: result });
     setSubMenuOpen(true);
   };
 
