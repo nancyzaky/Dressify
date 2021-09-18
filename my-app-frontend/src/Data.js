@@ -68,17 +68,37 @@ export const Links = [
 export const pageslinks = [
   {
     id: 1,
-    name: "Clothing",
-    pages: ["all", "tops", "shirtblouses", "trousers", "dresses"],
+    page: "Clothing",
+    allpages: ["all", "tops", "shirtblouses", "trousers", "dresses"],
   },
   {
     id: 2,
-    name: "Accessories",
-    pages: ["all", "trousers", "dresses"],
+    page: "Accessories",
+    allpages: ["all", "trousers", "dresses"],
   },
   {
     id: 3,
-    name: "Shoes",
-    pages: ["all", "tops", "shirtblouses", "trousers", "dresses"],
+    page: "Shoes",
+    allpages: ["all", "tops", "shirtblouses", "trousers", "dresses"],
+  },
+  {
+    id: 4,
+    page: "Home",
+    allpages: ["all", "tops", "shirtblouses", "trousers", "dresses"],
+  },
+  {
+    id: 5,
+    page: "Trending Now",
+    allpages: ["all", "tops", "shirtblouses", "trousers", "dresses"],
+  },
+  {
+    id: 6,
+    page: "Face + Body",
+    allpages: ["all", "tops", "shirtblouses", "trousers", "dresses"],
+  },
+  {
+    id: 7,
+    page: "Decoration&furniture",
+    allpages: ["all", "tops", "shirtblouses", "trousers", "dresses"],
   },
 ];

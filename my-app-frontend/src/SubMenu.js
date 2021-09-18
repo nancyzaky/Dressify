@@ -12,20 +12,25 @@ const SubMenu = () => {
     console.log(links.allpages);
   }, [location]);
   return (
-    <aside
-      className={`${subMenuOpen ? "submenu show" : "submenu"}`}
-      ref={asideMeasurements}
-    >
-      <ul>
-        {links.allpages.pages.map((link) => {
-          return (
-            <li>
-              <p style={{ color: "black" }}>{link}</p>
-            </li>
-          );
-        })}
-      </ul>
-    </aside>
+    <>
+      <aside
+        className={`${subMenuOpen ? "submenu show" : "submenu"}`}
+        ref={asideMeasurements}
+      >
+        <div className="arrow-up"></div>
+
+        <ul>
+          {links.allpages.length > 0 &&
+            links.allpages.map((link) => {
+              return (
+                <li>
+                  <p style={{ color: "black" }}>{link}</p>
+                </li>
+              );
+            })}
+        </ul>
+      </aside>
+    </>
   );
 };
 

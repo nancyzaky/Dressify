@@ -24,7 +24,11 @@ const Nav = ({ switchWoman, switchMan, woman, man }) => {
               <h1>ASOS</h1>
             </li>
             <li
-              className="profile-icons-list gender"
+              className={`${
+                woman
+                  ? "profile-icons-list gender"
+                  : "profile-icons-list gender set"
+              }`}
               style={{
                 paddingRight: "3rem",
                 paddingLeft: "3rem",

@@ -5,7 +5,7 @@ const Picture = ({ pic }) => {
     type: "image",
     item: { url: pic },
   }));
-  return <img src={pic} alt="pic" ref={drag} />;
+  return <img src={pic} alt="pic" ref={drag} className="pics" />;
 };
 
 export default Picture;

@@ -1,4 +1,5 @@
 import React, { useState, userRef } from "react";
+
 import { AiOutlineClose } from "react-icons/ai";
 import Picture from "./Picture";
 import { useDrop } from "react-dnd";
@@ -7,6 +8,7 @@ const Modal = ({ closeModal }) => {
   const addImg = (url) => {
     setCollection((collection) => [...collection, url]);
   };
+
   const [{ isOver }, drop] = useDrop(() => ({
     accept: "image",
     drop: (item) => addImg(item.url),

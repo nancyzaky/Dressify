@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Product from "./Product";
 import Loading from "./Loading";
-const Home = ({ showModal, woman, man, switchWoman }) => {
+const Home = ({ showModal, woman, man, switchWoman, user, addToCart }) => {
   const [products, setProducts] = useState([]);
   const [isloading, setIsLoading] = useState(true);
   const fetchUrl = () => {
     fetch(
-      `https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=60&categories=${
+      `https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=20&categories=${
         woman ? "ladies" : "men"
       }_newarrivals_all`,
       {
@@ -42,7 +42,13 @@ const Home = ({ showModal, woman, man, switchWoman }) => {
         <ul>
           {products.map((item) => {
             return (
-              <Product key={item.code} item={item} showModal={showModal} />
+              <Product
+                key={item.articleCodes[0]}
+                item={item}
+                showModal={showModal}
+                user={user}
+                addToCart={addToCart}
+              />
             );
           })}
         </ul>
