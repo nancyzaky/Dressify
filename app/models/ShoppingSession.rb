@@ -1,6 +1,5 @@
-class ShoppingSession < ActiveRecord::Base
+class Shoppingsession < ActiveRecord::Base
 belongs_to :user
-
   enum status: {
     pending: 0,
     active: 1,

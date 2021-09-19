@@ -10,10 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_18_213444) do
+ActiveRecord::Schema.define(version: 2021_09_18_235544) do
 
   create_table "carts", force: :cascade do |t|
-    t.integer "shopping_session_id"
+    t.integer "shoppingsession_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -25,10 +25,11 @@ ActiveRecord::Schema.define(version: 2021_09_18_213444) do
     t.integer "user_id"
   end
 
-  create_table "shopping_sessions", force: :cascade do |t|
+  create_table "shoppingsessions", force: :cascade do |t|
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "status", default: 0
   end
 
   create_table "users", force: :cascade do |t|
