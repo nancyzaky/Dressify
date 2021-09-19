@@ -4,35 +4,32 @@ class ApplicationController < Sinatra::Base
 
   # Add your routes here
   get "/user" do
-  User.all.to_json
+  User.all.to_json(include: :favorites)
 
   end
-  get "/" do
-  end
 
-  #   t.string :name
-      # t.string :url
-      # t.string :price
-      # t.integer :user_id
- get "./fav" do
- Favorite.all.to_json
+
+ get "/user/:user_name" do
+ find_fav = User.find_by(user_name:params[:user_name])
+ find_fav.to_json(include: :favorites)
  end
 
   post "/fav" do
-
-
   find = User.all.find_by(user_name:params[:user])
-     binding.pry
-
-  fav = Favorite.create(name:item.name, url: item.images[0].url)
-  find.favorites << fav
-  find.to_json
+  fav = Favorite.create(name:params[:name], url: params[:url], price:params[:price], user_id: find.id)
+  fav.to_json
   end
 
+
+get "/fav" do
+  Favorite.all.to_json
+end
 
 
 
   post "/user" do
+  find = User.find_by(user_name:params[:user])
+  if find.length == 0
   user_new=User.create(user_name:params[:user_name], password:params[:password])
 
     shop_session = Shoppingsession.create(user_id: user_new.id)
@@ -40,7 +37,7 @@ class ApplicationController < Sinatra::Base
     user_new.shoppingsession = shop_session
 
     user_new.to_json
-
+  end
   end
 
   get "/cart" do

@@ -7,6 +7,7 @@ import Cart from "./Cart";
 import Home from "./Home";
 import Footer from "./Footer";
 import LogIn from "./LogIn";
+import Fav from "./Fav";
 
 function App() {
   const [modal, setShowModal] = useState(false);
@@ -63,6 +64,9 @@ function App() {
           </Route>
           <Route path="/account">
             <LogIn changeUser={changeUser} />
+          </Route>
+          <Route path="/fav">
+            <Fav user={user} />
           </Route>
         </Switch>
         <Footer />

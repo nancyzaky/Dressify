@@ -10,6 +10,7 @@ const Product = ({ item, showModal, user, addToCart }) => {
         user: user.user_name,
         name: item.name,
         price: item.price.value,
+        url: item.images[0].url,
       }),
     });
   };
@@ -22,10 +23,7 @@ const Product = ({ item, showModal, user, addToCart }) => {
       body: JSON.stringify({ user: user.user_name, name: item.name }),
     });
   };
-  // #   t.string :name
-  //     # t.string :url
-  //     # t.string :price
-  //     # t.integer :user_id
+
   return (
     <li className="shadow">
       <Picture pic={item.images[0].url} id={new Date().getTime()} />
