@@ -14,6 +14,20 @@ class ApplicationController < Sinatra::Base
  find_fav.to_json(include: :favorites)
  end
 
+
+ get "/user/:user_name/fav" do
+ find_fav = User.find_by(user_name:params[:user_name])
+ find_fav.favorites.to_json
+ end
+
+ delete "/user/:user_name/fav/:id" do
+ find_fav = User.find_by(user_name:params[:user_name])
+ fav_item = find_fav.favorites.find(params[:id])
+ fav_item.destroy
+ fav_item.to_json
+end
+
+
   post "/fav" do
   find = User.all.find_by(user_name:params[:user])
   fav = Favorite.create(name:params[:name], url: params[:url], price:params[:price], user_id: find.id)
@@ -28,8 +42,9 @@ end
 
 
   post "/user" do
-  find = User.find_by(user_name:params[:user])
-  if find.length == 0
+  find = User.find_by(user_name:params[:user_name])
+  if find == nil
+
   user_new=User.create(user_name:params[:user_name], password:params[:password])
 
     shop_session = Shoppingsession.create(user_id: user_new.id)

@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from "react";
 import Product from "./Product";
 import Loading from "./Loading";
-const Home = ({ showModal, woman, man, switchWoman, user, addToCart }) => {
+const Home = ({
+  showModal,
+  woman,
+  man,
+  switchWoman,
+  user,
+  addToCart,
+  addFav,
+  deleteFav,
+}) => {
   const [products, setProducts] = useState([]);
   const [isloading, setIsLoading] = useState(true);
   const fetchUrl = () => {
@@ -48,6 +57,8 @@ const Home = ({ showModal, woman, man, switchWoman, user, addToCart }) => {
                 showModal={showModal}
                 user={user}
                 addToCart={addToCart}
+                addFav={addFav}
+                deleteFav={deleteFav}
               />
             );
           })}

@@ -116,9 +116,9 @@ a {
   transition-duration: 0.4s;
   padding-top: -3;
 }
-.submenu.show {
+/* .submenu.show {
   display: block;
-}
+} */
 
 /* .submenu-center {
   display: grid;

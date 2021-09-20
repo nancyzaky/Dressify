@@ -15,6 +15,16 @@ function App() {
   const [man, setMan] = useState(false);
   const [user, setUser] = useState({});
   const [cart, setCart] = useState([]);
+  const [fav, setFav] = useState([]);
+  const deleteFav = (itemId) => {
+    let newFavSet = fav.filter((fav) => {
+      return fav.id !== itemId;
+    });
+    setFav(newFavSet);
+  };
+  const addFav = (obj) => {
+    setFav([...fav, obj]);
+  };
   const changeUser = (obj) => {
     setUser(obj);
   };
@@ -57,6 +67,8 @@ function App() {
               switchWoman={switchWoman}
               user={user}
               addToCart={addToCart}
+              addFav={addFav}
+              deleteFav={deleteFav}
             />
           </Route>
           <Route path="/cart">
@@ -66,7 +78,7 @@ function App() {
             <LogIn changeUser={changeUser} />
           </Route>
           <Route path="/fav">
-            <Fav user={user} />
+            <Fav user={user} showModal={showModal} deleteFav={deleteFav} />
           </Route>
         </Switch>
         <Footer />

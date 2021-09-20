@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import Picture from "./Picture";
 import { AiFillHeart } from "react-icons/ai";
-const Product = ({ item, showModal, user, addToCart }) => {
+const Product = ({ item, showModal, user, addToCart, addFav, deleteFav }) => {
   const handleFav = () => {
+    let allItems = {
+      name: item.name,
+      price: item.price.value,
+      url: item.images[0].url,
+    };
     fetch("http://localhost:9292/fav", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -13,10 +18,16 @@ const Product = ({ item, showModal, user, addToCart }) => {
         url: item.images[0].url,
       }),
     });
+    addFav(allItems);
+  };
+  const handleRemove = (id) => {
+    deleteFav(id);
+    fetch(`http://localhost:9292/user/${user.user_name}/fav/${id}`, {
+      method: "DELETE",
+    });
   };
   const handleClick = () => {
     addToCart(item);
-    console.log(user.user_name);
     fetch("http://localhost:9292/user", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -26,9 +37,12 @@ const Product = ({ item, showModal, user, addToCart }) => {
 
   return (
     <li className="shadow">
-      <Picture pic={item.images[0].url} id={new Date().getTime()} />
+      <Picture
+        pic={item.images ? item.images[0].url : item.url}
+        id={new Date().getTime()}
+      />
       <h4>{item.name}</h4>
-      <h5>${item.price.value}</h5>
+      <h5>${item.price.value || item.price}</h5>
       {/* <ul style={{ display: "grid" }}>
         {item.rgbColors.map((color) => {
           return (
@@ -43,6 +57,7 @@ const Product = ({ item, showModal, user, addToCart }) => {
       <button onClick={handleFav}>
         <AiFillHeart />
       </button>
+      <button onClick={() => handleRemove(item.id)}>Remove from fav</button>
     </li>
   );
 };
