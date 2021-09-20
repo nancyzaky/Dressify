@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Product from "./Product";
 import Modal from "./Modal";
-const Fav = ({ user, deleteFav, showModal }) => {
+const Fav = ({ user, deleteFav, showModal, addToCart }) => {
   const [currentFav, setCurrentFav] = useState([]);
 
   const fetchUrl = () => {
@@ -33,7 +33,12 @@ const Fav = ({ user, deleteFav, showModal }) => {
               //     Remove from Fav
               //   </button>
               // </li>
-              <Product item={item} deleteFav={deleteFav} user={user} />
+              <Product
+                item={item}
+                deleteFav={deleteFav}
+                user={user}
+                addToCart={addToCart}
+              />
             );
           })}
         </ul>

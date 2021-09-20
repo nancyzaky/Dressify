@@ -1,5 +1,6 @@
 class Shoppingsession < ActiveRecord::Base
 belongs_to :user
+has_many :carts
   enum status: {
     pending: 0,
     active: 1,

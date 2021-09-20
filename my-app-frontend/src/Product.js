@@ -28,10 +28,15 @@ const Product = ({ item, showModal, user, addToCart, addFav, deleteFav }) => {
   };
   const handleClick = () => {
     addToCart(item);
-    fetch("http://localhost:9292/user", {
+    fetch(`http://localhost:9292/user/${user.user_name}/cart`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ user: user.user_name, name: item.name }),
+      body: JSON.stringify({
+        user: user.user_name,
+        name: item.name,
+        price: item.price.value,
+        url: item.images[0].url,
+      }),
     });
   };
 

@@ -78,7 +78,12 @@ function App() {
             <LogIn changeUser={changeUser} />
           </Route>
           <Route path="/fav">
-            <Fav user={user} showModal={showModal} deleteFav={deleteFav} />
+            <Fav
+              user={user}
+              showModal={showModal}
+              deleteFav={deleteFav}
+              addToCart={addToCart}
+            />
           </Route>
         </Switch>
         <Footer />
