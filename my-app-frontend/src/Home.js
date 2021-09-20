@@ -17,7 +17,7 @@ const Home = ({
     fetch(
       `https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=5&categories=${
         woman ? "ladies" : "men"
-      }_newarrivals_all`,
+      }_newarrivals_shoesacc`,
       {
         method: "GET",
         headers: {

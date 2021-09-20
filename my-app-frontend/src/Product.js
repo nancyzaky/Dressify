@@ -20,14 +20,18 @@ const Product = ({ item, showModal, user, addToCart, addFav, deleteFav }) => {
     });
     addFav(allItems);
   };
-  const handleRemove = (id) => {
-    deleteFav(id);
-    fetch(`http://localhost:9292/user/${user.user_name}/fav/${id}`, {
-      method: "DELETE",
-    });
-  };
+  // const handleRemove = (id) => {
+  //   deleteFav(id);
+  //   fetch(`http://localhost:9292/user/${user.user_name}/fav/${id}`, {
+  //     method: "DELETE",
+  //   });
+  // };
   const handleClick = () => {
-    addToCart(item);
+    addToCart({
+      name: item.name,
+      price: item.price.value,
+      url: item.images[0].url,
+    });
     fetch(`http://localhost:9292/user/${user.user_name}/cart`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -47,7 +51,7 @@ const Product = ({ item, showModal, user, addToCart, addFav, deleteFav }) => {
         id={new Date().getTime()}
       />
       <h4>{item.name}</h4>
-      <h5>${item.price.value || item.price}</h5>
+      <h5>${item.price.value}</h5>
       {/* <ul style={{ display: "grid" }}>
         {item.rgbColors.map((color) => {
           return (
@@ -62,7 +66,7 @@ const Product = ({ item, showModal, user, addToCart, addFav, deleteFav }) => {
       <button onClick={handleFav}>
         <AiFillHeart />
       </button>
-      <button onClick={() => handleRemove(item.id)}>Remove from fav</button>
+      {/* <button onClick={() => handleRemove(item.id)}>Remove from fav</button> */}
     </li>
   );
 };

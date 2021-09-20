@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Nav from "./Nav";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import SubMenu from "./SubMenu";
@@ -14,8 +14,9 @@ function App() {
   const [woman, setWoman] = useState(true);
   const [man, setMan] = useState(false);
   const [user, setUser] = useState({});
-  const [cart, setCart] = useState([]);
   const [fav, setFav] = useState([]);
+  const [cart, setCart] = useState([]);
+
   const deleteFav = (itemId) => {
     let newFavSet = fav.filter((fav) => {
       return fav.id !== itemId;
@@ -31,6 +32,12 @@ function App() {
   const addToCart = (product) => {
     setCart([...cart, product]);
   };
+  const deleteFromCart = (productId) => {
+    let newCart = cart.filter((item) => {
+      return item.id !== productId;
+    });
+    setCart(newCart);
+  };
   const switchWoman = () => {
     setWoman(true);
     setMan(false);
@@ -45,6 +52,24 @@ function App() {
   const closeModal = () => {
     setShowModal(false);
   };
+  const fetchUrl = () => {
+    if (user.user_name) {
+      fetch(`http://localhost:9292/user/${user.user_name}/cart`)
+        .then((resp) => resp.json())
+        .then((data) => setCart(data.items));
+
+      fetch(`http://localhost:9292/user/${user.user_name}/fav`)
+        .then((resp) => resp.json())
+        .then((data) => {
+          if (data) {
+            setFav(data);
+          }
+        });
+    }
+  };
+  useEffect(() => {
+    fetchUrl();
+  }, [user]);
   return (
     <>
       <Router>
@@ -72,18 +97,13 @@ function App() {
             />
           </Route>
           <Route path="/cart">
-            <Cart />
+            <Cart cart={cart} user={user} deleteFromCart={deleteFromCart} />
           </Route>
           <Route path="/account">
             <LogIn changeUser={changeUser} />
           </Route>
           <Route path="/fav">
-            <Fav
-              user={user}
-              showModal={showModal}
-              deleteFav={deleteFav}
-              addToCart={addToCart}
-            />
+            <Fav user={user} fav={fav} deleteFav={deleteFav} />
           </Route>
         </Switch>
         <Footer />
