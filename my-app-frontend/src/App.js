@@ -16,8 +16,12 @@ function App() {
   const [user, setUser] = useState({});
   const [fav, setFav] = useState([]);
   const [cart, setCart] = useState([]);
-  const [itemExistModal, setItemExistModal] = useState(false);
+  const [allUsers, setAllUsers] = useState([]);
 
+  const [itemExistModal, setItemExistModal] = useState(false);
+  const addUser = (obj) => {
+    setAllUsers([...allUsers, obj]);
+  };
   const deleteFav = (itemId) => {
     let newFavSet = fav.filter((fav) => {
       return fav.id !== itemId;
@@ -80,7 +84,7 @@ function App() {
     setShowModal(false);
   };
   const fetchUrl = () => {
-    if (user.user_name) {
+    if (user) {
       fetch(`http://localhost:9292/user/${user.user_name}/cart`)
         .then((resp) => resp.json())
         .then((data) => setCart(data.items));
@@ -99,11 +103,15 @@ function App() {
   useEffect(() => {
     fetchUrl();
   }, [user]);
-
+  useEffect(() => {
+    fetch("http://localhost:9292/user")
+      .then((resp) => resp.json())
+      .then((data) => setAllUsers(data));
+  }, []);
   useEffect(() => {
     const displayAlert = setTimeout(() => {
       setItemExistModal(false);
-    }, 4000);
+    }, 2000);
   }, [itemExistModal]);
   return (
     <>
@@ -137,7 +145,11 @@ function App() {
             <Cart cart={cart} user={user} deleteFromCart={deleteFromCart} />
           </Route>
           <Route path="/account">
-            <LogIn changeUser={changeUser} />
+            <LogIn
+              changeUser={changeUser}
+              allUsers={allUsers}
+              addUser={addUser}
+            />
           </Route>
           <Route path="/fav">
             <Fav user={user} fav={fav} deleteFav={deleteFav} />

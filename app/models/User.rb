@@ -12,7 +12,7 @@ def total_items
    tot = 0
   cart =  self.carts.find_by(status:1)
   cart.items.each do |item|
-    tot+= item.price.to_i
+    tot+= (item.price.to_f) * (item.quantity.to_f)
   end
   tot
 end

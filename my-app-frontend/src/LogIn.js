@@ -1,38 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
-const LogIn = ({ changeUser }) => {
+const LogIn = ({ changeUser, allUsers, addUser }) => {
+  console.log(allUsers);
   const [nameVal, setNameVal] = useState("");
   const [passwordVal, setPasswordVal] = useState("");
-  const [users, setUsers] = useState([]);
   const handleSubmit = (e) => {
     e.preventDefault();
     let newUser = { user_name: nameVal, password: passwordVal };
-
-    fetch("http://localhost:9292/user", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newUser),
-    })
-      .then((resp) => resp.json())
-      .then((data) => {
-        changeUser(data);
-        console.log(data);
-        setUsers([...users, data]);
-        // if (users.length > 0) {
-        //   let result = users.filter((user) => {
-        //     return (
-        //       user.user_name === newUser.user_name &&
-        //       user.password === newUser.password
-        //     );
-        //   })
-        //   result ?
-        // }
-      });
-
+    let result = allUsers.filter((user) => {
+      return user.user_name === nameVal;
+    });
+    if (result) {
+      console.log(result);
+      changeUser(result[0]);
+    } else {
+      fetch("http://localhost:9292/user", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newUser),
+      })
+        .then((resp) => resp.json())
+        .then((data) => {
+          console.log(data);
+          changeUser(data);
+          console.log(data);
+          addUser(data);
+        });
+    }
     setNameVal("");
     setPasswordVal("");
   };
+
   return (
     <>
       <h3>Log In</h3>
