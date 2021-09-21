@@ -7,6 +7,16 @@ has_many :carts
     archived: 2
   }
 
+
+def total_items
+   tot = 0
+  cart =  self.carts.find_by(status:1)
+  cart.items.each do |item|
+    tot+= item.price.to_i
+  end
+  tot
+end
+
  def increase_quantity(product)
   find_the_cart = self.carts.find do |cart|
     cart.status == 1

@@ -1,10 +1,11 @@
 import React from "react";
-import ReactLoading from "react-loading";
+import { Ring } from "react-awesome-spinners";
 
 const Loading = () => {
   return (
-    <div>
-      <h1>Loading ....</h1>
+    <div style={{ alignItems: "center", textAlign: "center" }}>
+      <h1 style={{ textAlign: "center", color: "lightBlue" }}>Loading ....</h1>
+      <Ring />
     </div>
   );
 };

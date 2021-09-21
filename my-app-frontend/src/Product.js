@@ -1,45 +1,48 @@
 import React, { useState } from "react";
 import Picture from "./Picture";
 import { AiFillHeart } from "react-icons/ai";
-const Product = ({ item, showModal, user, addToCart, addFav, deleteFav }) => {
+const Product = ({
+  item,
+  showModal,
+  user,
+  addToCart,
+  addFav,
+  deleteFav,
+  fav,
+}) => {
   const handleFav = () => {
-    let allItems = {
-      name: item.name,
-      price: item.price.value,
-      url: item.images[0].url,
-    };
-    fetch("http://localhost:9292/fav", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        user: user.user_name,
-        name: item.name,
-        price: item.price.value,
-        url: item.images[0].url,
-      }),
+    // let allItems = {
+    //   name: item.name,
+    //   price: item.price.value,
+    //   url: item.images[0].url,
+    // };
+    let result = fav.filter((product) => {
+      return product.name === item.name;
     });
-    addFav(allItems);
+    if (result.length == 0) {
+      fetch("http://localhost:9292/fav", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          user: user.user_name,
+          name: item.name,
+          price: item.price.value,
+          url: item.images[0].url,
+        }),
+      })
+        .then((resp) => resp.json())
+        .then((data) => {
+          addFav(data);
+        });
+    }
   };
 
-  const handleClick = (key) => {
-    fetch(`http://localhost:9292/user/${user.user_name}/cart/${key}`)
-      .then((resp) => resp.json())
-      .then((data) => console.log(data.quantity));
+  const handleClick = () => {
     addToCart({
       name: item.name,
       price: item.price.value,
       url: item.images[0].url,
-    });
-    fetch(`http://localhost:9292/user/${user.user_name}/cart`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        user: user.user_name,
-        name: item.name,
-        price: item.price.value,
-        url: item.images[0].url,
-        quantity: null,
-      }),
+      quantity: 1,
     });
   };
 
@@ -60,9 +63,14 @@ const Product = ({ item, showModal, user, addToCart, addFav, deleteFav }) => {
           );
         })}
       </ul> */}
-      <button onClick={showModal}>Drag And Drop</button>
-      <button onClick={handleClick}> Add To Cart</button>
-      <button onClick={handleFav}>
+      <button className="btn" onClick={showModal}>
+        Drag And Drop
+      </button>
+      <button className="btn" onClick={handleClick}>
+        {" "}
+        Add To Cart
+      </button>
+      <button className="btn" onClick={handleFav}>
         <AiFillHeart />
       </button>
     </li>

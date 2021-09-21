@@ -30,21 +30,40 @@ function App() {
   const changeUser = (obj) => {
     setUser(obj);
   };
-  const addToCart = (product) => {
-    let result = cart.filter((item) => {
-      return item.name === product.name;
+  const addToCart = (item) => {
+    let result = cart.filter((product) => {
+      return product.name === item.name;
     });
     if (result.length > 0) {
       setItemExistModal(true);
     } else {
-      setCart([...cart, product]);
+      fetch(`http://localhost:9292/user/${user.user_name}/cart`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          user: user.user_name,
+          name: item.name,
+          price: item.price,
+          url: item.url,
+          quantity: 1,
+        }),
+      })
+        .then((resp) => resp.json())
+        .then((data) => {
+          console.log(data);
+          setCart([...cart, data]);
+        });
     }
   };
   const deleteFromCart = (productId) => {
+    console.log(productId);
     let newCart = cart.filter((item) => {
       return item.id !== productId;
     });
     setCart(newCart);
+    fetch(`http://localhost:9292/user/${user.user_name}/cart/${productId}`, {
+      method: "DELETE",
+    });
   };
   const switchWoman = () => {
     setWoman(true);
@@ -70,30 +89,22 @@ function App() {
         .then((resp) => resp.json())
         .then((data) => {
           if (data) {
+            console.log(data);
             setFav(data);
           }
         });
     }
   };
-  // const handleRepeatedItem = (repeatItem) => {
-  // console.log(items);
-  //   let result = fetch(
-  //     `http://localhost:9292/user/${user.user_name}/cart/${repeatItem.id}`
-  //   )
-  //     .then((resp) => resp.json())
-  //     .then((data) => console.log(data.quantity));
-  //   setItemExistModal(false);
-  //   fetch(
-  //     `http://localhost:9292/user/${user.user_name}/cart/${repeatItem.id}`,
-  //     {
-  //       method: "PATCH",
-  //       headers: { "Content-Type": "application/json" },
-  //     }
-  //   );
-  // };
+
   useEffect(() => {
     fetchUrl();
   }, [user]);
+
+  useEffect(() => {
+    const displayAlert = setTimeout(() => {
+      setItemExistModal(false);
+    }, 4000);
+  }, [itemExistModal]);
   return (
     <>
       <Router>
@@ -104,8 +115,9 @@ function App() {
           man={man}
         />
         <SubMenu />
-        {modal && <Modal closeModal={closeModal} />}
         {itemExistModal && <ExistModal />}
+        {modal && <Modal closeModal={closeModal} />}
+
         <Switch>
           <Route exact path="/">
             <Home
@@ -118,6 +130,7 @@ function App() {
               addToCart={addToCart}
               addFav={addFav}
               deleteFav={deleteFav}
+              fav={fav}
             />
           </Route>
           <Route path="/cart">

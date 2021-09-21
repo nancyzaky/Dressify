@@ -4,15 +4,31 @@ import { useHistory } from "react-router-dom";
 const LogIn = ({ changeUser }) => {
   const [nameVal, setNameVal] = useState("");
   const [passwordVal, setPasswordVal] = useState("");
+  const [users, setUsers] = useState([]);
   const handleSubmit = (e) => {
     e.preventDefault();
     let newUser = { user_name: nameVal, password: passwordVal };
-    changeUser(newUser);
+
     fetch("http://localhost:9292/user", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newUser),
-    });
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        changeUser(data);
+        console.log(data);
+        setUsers([...users, data]);
+        // if (users.length > 0) {
+        //   let result = users.filter((user) => {
+        //     return (
+        //       user.user_name === newUser.user_name &&
+        //       user.password === newUser.password
+        //     );
+        //   })
+        //   result ?
+        // }
+      });
 
     setNameVal("");
     setPasswordVal("");

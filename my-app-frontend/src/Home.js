@@ -10,6 +10,7 @@ const Home = ({
   addToCart,
   addFav,
   deleteFav,
+  fav,
 }) => {
   const [products, setProducts] = useState([]);
   const [isloading, setIsLoading] = useState(true);
@@ -29,7 +30,6 @@ const Home = ({
     )
       .then((resp) => resp.json())
       .then((data) => {
-        console.log(data);
         setIsLoading(false);
         setProducts(data.results);
       })
@@ -59,6 +59,7 @@ const Home = ({
                 addToCart={addToCart}
                 addFav={addFav}
                 deleteFav={deleteFav}
+                fav={fav}
               />
             );
           })}

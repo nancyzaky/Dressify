@@ -212,3 +212,18 @@ a {
   margin-left: 3.5rem;
   margin-top: -6px;
 }
+
+.btn {
+  /* position: absolute; */
+  width: 140px;
+  height: 30px;
+  margin-right: 2rem;
+  margin-bottom: 1rem;
+  margin-left: 2rem;
+  /* background: transparent; */
+  /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
+  background: rgba(202, 20, 20, 0.05);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-weight: bolder;
+  color: red;
+}

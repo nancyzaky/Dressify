@@ -1,10 +1,21 @@
 import React, { useState, useEffect } from "react";
 import Picture from "./Picture";
+import CartItem from "./CartItem";
 const Cart = ({ user, cart, deleteFromCart }) => {
+  console.log(user.id);
+  const [tot, setTot] = useState(0);
   const handleRemove = (productId) => {
     deleteFromCart(productId);
   };
+  const fetchUrl = () => {
+    fetch(`http://localhost:9292/total/${user.id}`)
+      .then((resp) => resp.json())
+      .then((data) => setTot(data));
+  };
 
+  useEffect(() => {
+    fetchUrl();
+  }, [handleRemove]);
   return (
     <div>
       <h1>Cart</h1>
@@ -12,22 +23,11 @@ const Cart = ({ user, cart, deleteFromCart }) => {
         <ul>
           {cart.map((item) => {
             return (
-              <li className="shadow">
-                <Picture pic={item.url} />
-                <h4>{item.name}</h4>
-                <h5>${item.price}</h5>
-                <h4>quantity:{item.quantity}</h4>
-                <button
-                  onClick={() => {
-                    handleRemove(item.id);
-                  }}
-                >
-                  Remove from cart
-                </button>
-              </li>
+              <CartItem item={item} key={item.id} handleRemove={handleRemove} />
             );
           })}
         </ul>
+        <h2>Total=${tot}</h2>
       </div>
     </div>
   );
