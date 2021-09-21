@@ -146,7 +146,7 @@ a {
 }
 .shadow {
   background: #eee;
-  box-shadow: 0 10px 10px 4px rgb(228, 203, 233);
+  box-shadow: 0 10px 10px 4px lightblue;
   display: inline-block;
   margin-left: 3rem;
 
@@ -173,6 +173,21 @@ a {
   overflow-y: scroll;
   width: 800px;
   height: 800px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  padding: 2rem;
+  border-radius: var(--radius);
+  transition: var(--transition);
+  transition-delay: 0.1s;
+  transition-duration: 0.4s;
+}
+.modal_small {
+  background-color: white;
+  box-shadow: var(--dark-shadow);
+  position: fixed;
+  width: 200px;
+  height: 200px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 3;

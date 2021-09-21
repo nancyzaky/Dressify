@@ -8,7 +8,7 @@ import Home from "./Home";
 import Footer from "./Footer";
 import LogIn from "./LogIn";
 import Fav from "./Fav";
-
+import ExistModal from "./ExistModal";
 function App() {
   const [modal, setShowModal] = useState(false);
   const [woman, setWoman] = useState(true);
@@ -16,6 +16,7 @@ function App() {
   const [user, setUser] = useState({});
   const [fav, setFav] = useState([]);
   const [cart, setCart] = useState([]);
+  const [itemExistModal, setItemExistModal] = useState(false);
 
   const deleteFav = (itemId) => {
     let newFavSet = fav.filter((fav) => {
@@ -30,7 +31,14 @@ function App() {
     setUser(obj);
   };
   const addToCart = (product) => {
-    setCart([...cart, product]);
+    let result = cart.filter((item) => {
+      return item.name === product.name;
+    });
+    if (result.length > 0) {
+      setItemExistModal(true);
+    } else {
+      setCart([...cart, product]);
+    }
   };
   const deleteFromCart = (productId) => {
     let newCart = cart.filter((item) => {
@@ -67,6 +75,22 @@ function App() {
         });
     }
   };
+  // const handleRepeatedItem = (repeatItem) => {
+  // console.log(items);
+  //   let result = fetch(
+  //     `http://localhost:9292/user/${user.user_name}/cart/${repeatItem.id}`
+  //   )
+  //     .then((resp) => resp.json())
+  //     .then((data) => console.log(data.quantity));
+  //   setItemExistModal(false);
+  //   fetch(
+  //     `http://localhost:9292/user/${user.user_name}/cart/${repeatItem.id}`,
+  //     {
+  //       method: "PATCH",
+  //       headers: { "Content-Type": "application/json" },
+  //     }
+  //   );
+  // };
   useEffect(() => {
     fetchUrl();
   }, [user]);
@@ -81,7 +105,7 @@ function App() {
         />
         <SubMenu />
         {modal && <Modal closeModal={closeModal} />}
-
+        {itemExistModal && <ExistModal />}
         <Switch>
           <Route exact path="/">
             <Home

@@ -4,7 +4,7 @@ class ApplicationController < Sinatra::Base
 
   # Add your routes here
   get "/user" do
-   User.all.to_json(include: :shoppingsession)
+   User.all.to_json(include: {carts: {include: :items}})
   end
 
 
@@ -15,14 +15,18 @@ class ApplicationController < Sinatra::Base
  end
 
 post "/user/:user_name/cart" do
-  find_user = User.find_by(user_name:params[:user_name]).shoppingsessions
- shop_session = find_user.find_by(status:0)
- binding.pry
-#  cart_new = Cart.create(shoppingsession_id:shop_session.id)
-#  item_new = Item.create(name:params[:name], url:params[:url], price:params[:price])
-#  shop_session << item_new
+  find_user = User.find_by(user_name:params[:user_name])
+  cart_active = find_user.carts.find_by(status:1)
+  item_new = Item.create(name:params[:name], url:params[:url], price:params[:price])
+  cart_active.items<<item_new
+  cart_active.to_json
 
- shop_session.to_json
+end
+
+get "/user/:user_name/cart" do
+   find_carts = User.find_by(user_name:params[:user_name])
+   cart_active = find_carts.carts.find_by(status:1)
+   cart_active.to_json(include: :items)
 end
  get "/user/:user_name/fav" do
  find_fav = User.find_by(user_name:params[:user_name])
@@ -36,7 +40,25 @@ end
  fav_item.to_json
 end
 
+get "/user/:user_name/cart/:id" do
+find_user = User.find_by(user_name:params[:user_name])
+cart_active = find_user.carts.find_by(status:1)
+item_to_repeat = cart_active.items.find(params[:id])
+# item_to_repeat.update(quantity: quantity+=1)
+# find_user.increase_quantity
+item_to_repeat.to_json
+end
 
+
+patch "/user/:user_name/cart/:id" do
+find_user = User.find_by(user_name:params[:user_name])
+cart_active = find_user.carts.find_by(status:1)
+item_to_repeat = cart_active.items.find(params[:id])
+binding.pry
+item_to_repeat.update(quantity: quantity+=1)
+# find_user.increase_quantity
+item_to_repeat.to_json
+end
   post "/fav" do
   find = User.all.find_by(user_name:params[:user])
   fav = Favorite.create(name:params[:name], url: params[:url], price:params[:price], user_id: find.id)
@@ -55,18 +77,13 @@ end
 
   if find == nil
   user_new=User.create(user_name:params[:user_name], password:params[:password])
-
-    shop_session = Shoppingsession.create(user_id: user_new.id)
-    # user_new.shoppingsessions << shop_session
-    cart_new = Cart.create(shoppingsession_id:shop_session.id)
-    shop_session << cart_new
-    # binding.pry
-    user_new.to_json
+  cart_new = Cart.create(user_id:user_new.id)
+  user_new.to_json
 
   end
   end
 
-
+# Shoppingsession
 get "/cart" do
   Cart.all.to_json
 end

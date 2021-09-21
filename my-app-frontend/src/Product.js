@@ -20,13 +20,11 @@ const Product = ({ item, showModal, user, addToCart, addFav, deleteFav }) => {
     });
     addFav(allItems);
   };
-  // const handleRemove = (id) => {
-  //   deleteFav(id);
-  //   fetch(`http://localhost:9292/user/${user.user_name}/fav/${id}`, {
-  //     method: "DELETE",
-  //   });
-  // };
-  const handleClick = () => {
+
+  const handleClick = (key) => {
+    fetch(`http://localhost:9292/user/${user.user_name}/cart/${key}`)
+      .then((resp) => resp.json())
+      .then((data) => console.log(data.quantity));
     addToCart({
       name: item.name,
       price: item.price.value,
@@ -40,6 +38,7 @@ const Product = ({ item, showModal, user, addToCart, addFav, deleteFav }) => {
         name: item.name,
         price: item.price.value,
         url: item.images[0].url,
+        quantity: null,
       }),
     });
   };
@@ -66,7 +65,6 @@ const Product = ({ item, showModal, user, addToCart, addFav, deleteFav }) => {
       <button onClick={handleFav}>
         <AiFillHeart />
       </button>
-      {/* <button onClick={() => handleRemove(item.id)}>Remove from fav</button> */}
     </li>
   );
 };

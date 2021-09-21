@@ -1,4 +1,4 @@
 class Cart < ActiveRecord::Base
-belongs_to :shoppingsession
+belongs_to :user
 has_many :items
 end

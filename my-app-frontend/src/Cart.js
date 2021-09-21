@@ -4,17 +4,7 @@ const Cart = ({ user, cart, deleteFromCart }) => {
   const handleRemove = (productId) => {
     deleteFromCart(productId);
   };
-  // const [data, setData] = useState([]);
-  // const fetchUrl = () => {
-  //   if (user.user_name) {
-  //     fetch(`http://localhost:9292/user/${user.user_name}/cart`)
-  //       .then((resp) => resp.json())
-  //       .then((data) => setData(data.items));
-  //   }
-  // };
-  // useEffect(() => {
-  //   fetchUrl();
-  // }, []);
+
   return (
     <div>
       <h1>Cart</h1>
@@ -26,6 +16,7 @@ const Cart = ({ user, cart, deleteFromCart }) => {
                 <Picture pic={item.url} />
                 <h4>{item.name}</h4>
                 <h5>${item.price}</h5>
+                <h4>quantity:{item.quantity}</h4>
                 <button
                   onClick={() => {
                     handleRemove(item.id);
