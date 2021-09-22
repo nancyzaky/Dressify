@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Product from "./Product";
 import Loading from "./Loading";
+import MostFav from "./MostFav";
 const Home = ({
   showModal,
   woman,
-  man,
   switchWoman,
   user,
   addToCart,
@@ -16,7 +16,7 @@ const Home = ({
   const [isloading, setIsLoading] = useState(true);
   const fetchUrl = () => {
     fetch(
-      `https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=5&categories=${
+      `https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=30&categories=${
         woman ? "ladies" : "men"
       }_newarrivals_shoesacc`,
       {
@@ -43,7 +43,19 @@ const Home = ({
   }, [switchWoman]);
   return (
     <>
-      <div className="home_bg"></div>
+      <div className="home_bg">
+        <h1
+          style={{
+            paddingTop: "10rem",
+            paddingLeft: "38rem",
+            color: "white",
+            fontWeight: "bolder",
+            fontFamily: "Anton, sans-serif;",
+          }}
+        >
+          Get 10% off when you apply code "sinatra" on Check out!!
+        </h1>
+      </div>
       {isloading && <Loading />}
 
       <div className="products">
@@ -65,6 +77,7 @@ const Home = ({
           })}
         </ul>
       </div>
+      <MostFav />
     </>
   );
 };

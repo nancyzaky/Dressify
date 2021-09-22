@@ -8,12 +8,10 @@ const Fav = ({ user, fav, deleteFav }) => {
       method: "DELETE",
     });
   };
-  // useEffect(() => {
-  //   fetchUrl();
-  // }, [deleteFav]);
+
   return (
     <>
-      <h1>Favorite items</h1>
+      <h3 style={{ color: "white", textAlign: "center" }}>Favorite items</h3>
       <div className="products">
         <ul>
           {fav.map((item) => {
@@ -26,12 +24,6 @@ const Fav = ({ user, fav, deleteFav }) => {
                   Remove from Fav
                 </button>
               </li>
-              // <Product
-              //   item={item}
-              //   deleteFav={deleteFav}
-              //   user={user}
-              //   addToCart={addToCart}
-              // />
             );
           })}
         </ul>

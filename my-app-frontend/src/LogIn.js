@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const LogIn = ({ changeUser, allUsers, addUser }) => {
+  let history = useHistory();
   const [nameVal, setNameVal] = useState("");
   const [logged, setLogged] = useState(false);
   const [passwordVal, setPasswordVal] = useState("");
@@ -29,12 +30,14 @@ const LogIn = ({ changeUser, allUsers, addUser }) => {
       //       addUser(data);
       //     });
       // }
-      setNameVal("");
-      setPasswordVal("");
+
       setLogged(true);
+      history.push("/");
     } else {
       setSigUp(true);
     }
+    setNameVal("");
+    setPasswordVal("");
   };
   return (
     <>

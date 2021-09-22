@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 const SignUp = (addUser, changeUser) => {
+  let history = useHistory();
   const [newUser, setNewUser] = useState("");
   const [newPass, setNewPass] = useState("");
   const handleSignUp = () => {
@@ -15,10 +16,11 @@ const SignUp = (addUser, changeUser) => {
         changeUser(data);
         addUser(data);
       });
+    // history.push("/");
   };
   return (
     <div>
-      <h3 style={{ textAlign: "center" }}>Sign Up</h3>
+      <h3 style={{ textAlign: "center", color: "white" }}>Sign Up</h3>
       <form className="login-cont" type="submit" onSubmit={handleSignUp}>
         <label htmlFor="username" name="name" id="name" className="label">
           Create User Name

@@ -76,7 +76,9 @@ patch "/user/:id/cart/:itemid" do
 find_user = User.find_by(params[:id])
 # binding.pry
 
-cart_active = find_user.carts.find_by(status:1)
+ cart_active = find_user.carts.find_by(status:1)
+# cart_active = find_user.carts.where("status" =>1)
+
 item_to_repeat = cart_active.items.find(params[:itemid])
 item_to_repeat.update(quantity: params[:quantity])
 # find_user.increase_quantity
@@ -107,13 +109,23 @@ get "/fav" do
   Favorite.all.to_json
 end
 
-
-
-
-# Shoppingsession
 get "/cart" do
-  Cart.all.to_json
+Cart.where(status:1).to_json
 end
+
+get'/bestsellers' do
+result = Cart.joins(:items).group(:name, :url). order("count_id DESC").count(:id)
+result.to_json
+end
+
+get "/mostfav" do
+ result =  Favorite.group(:url).order('count_id DESC').limit(5).count(:id)
+ result.to_json
+end
+# # Shoppingsession
+# get "/cart" do
+#   Cart.all.to_json
+# end
 
 get "/total/:id" do
 user = User.find(params[:id])

@@ -5,12 +5,13 @@ const CartItem = ({ item, handleRemove, user, changeTotal }) => {
 
   const fetchUrl = () => {
     console.log(user.id, item.id);
+    changeTotal();
+
     fetch(`http://localhost:9292/user/${user.id}/cart/${item.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ quantity: quantity }),
     });
-    changeTotal();
   };
   useEffect(() => {
     fetchUrl();

@@ -22,10 +22,16 @@ def total_items
 end
 end
 
-# def discount
-# result = self.total_items
-# result -= result* 0.1
-# end
+def self.best_seller
+  fav_hash = Hash.new(0)
+ self.all.each do |person|
+    person.favorites.each do |item|
+    fav_hash[item] += 1
+    end
+  end
+  fav_hash
+end
+
 
  def increase_quantity(product)
   find_the_cart = self.carts.find do |cart|
