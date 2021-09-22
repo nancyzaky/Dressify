@@ -1,26 +1,13 @@
 import React, { useState } from "react";
 import Picture from "./Picture";
 import { AiFillHeart } from "react-icons/ai";
-const Product = ({
-  item,
-  showModal,
-  user,
-  addToCart,
-  addFav,
-  deleteFav,
-  fav,
-}) => {
+const Product = ({ item, showModal, user, addToCart, addFav, fav }) => {
   const handleFav = () => {
-    // let allItems = {
-    //   name: item.name,
-    //   price: item.price.value,
-    //   url: item.images[0].url,
-    // };
     let result = fav.filter((product) => {
       return product.name === item.name;
     });
     if (result.length == 0) {
-      fetch("http://localhost:9292/fav", {
+      fetch(`http://localhost:9292/fav`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

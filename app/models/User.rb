@@ -14,8 +14,18 @@ def total_items
   cart.items.each do |item|
     tot+= (item.price.to_f) * (item.quantity.to_f)
   end
+
+ if cart.discount == true
+  tot = tot - (tot * 0.1)
+ else
   tot
 end
+end
+
+# def discount
+# result = self.total_items
+# result -= result* 0.1
+# end
 
  def increase_quantity(product)
   find_the_cart = self.carts.find do |cart|

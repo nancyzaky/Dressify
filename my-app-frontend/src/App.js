@@ -9,7 +9,10 @@ import Footer from "./Footer";
 import LogIn from "./LogIn";
 import Fav from "./Fav";
 import ExistModal from "./ExistModal";
+import SignUp from "./SignUp";
+
 function App() {
+  const [discount, setDiscount] = useState("sinatra");
   const [modal, setShowModal] = useState(false);
   const [woman, setWoman] = useState(true);
   const [man, setMan] = useState(false);
@@ -17,11 +20,15 @@ function App() {
   const [fav, setFav] = useState([]);
   const [cart, setCart] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
-
   const [itemExistModal, setItemExistModal] = useState(false);
+
   const addUser = (obj) => {
     setAllUsers([...allUsers, obj]);
   };
+  const changeUser = (obj) => {
+    setUser(obj);
+  };
+
   const deleteFav = (itemId) => {
     let newFavSet = fav.filter((fav) => {
       return fav.id !== itemId;
@@ -31,9 +38,7 @@ function App() {
   const addFav = (obj) => {
     setFav([...fav, obj]);
   };
-  const changeUser = (obj) => {
-    setUser(obj);
-  };
+
   const addToCart = (item) => {
     let result = cart.filter((product) => {
       return product.name === item.name;
@@ -125,7 +130,6 @@ function App() {
         <SubMenu />
         {itemExistModal && <ExistModal />}
         {modal && <Modal closeModal={closeModal} />}
-
         <Switch>
           <Route exact path="/">
             <Home
@@ -142,7 +146,12 @@ function App() {
             />
           </Route>
           <Route path="/cart">
-            <Cart cart={cart} user={user} deleteFromCart={deleteFromCart} />
+            <Cart
+              cart={cart}
+              user={user}
+              deleteFromCart={deleteFromCart}
+              discount={discount}
+            />
           </Route>
           <Route path="/account">
             <LogIn
@@ -150,6 +159,9 @@ function App() {
               allUsers={allUsers}
               addUser={addUser}
             />
+          </Route>
+          <Route path="/signup">
+            <SignUp changeUser={changeUser} addUser={addUser} />
           </Route>
           <Route path="/fav">
             <Fav user={user} fav={fav} deleteFav={deleteFav} />
