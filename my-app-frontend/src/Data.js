@@ -18,7 +18,6 @@ export const Data = [
   },
   { id: 2, icon: <RiHeartLine className="icon" />, url: "./fav" },
   { id: 3, icon: <BsPerson className="icon" />, url: "./account" },
-  { id: 4, icon: <p>LogOut</p>, url: "./account" },
 ];
 
 export const Links = [

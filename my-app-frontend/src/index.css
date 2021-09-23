@@ -6,8 +6,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #353839;
-  /* position: fixed; */
+  position: relative;
   width: 100%;
+  overflow-y: scroll;
 }
 
 code {
@@ -143,6 +144,7 @@ a {
   /* max-width: fit-content; */
   width: 100%;
   height: auto;
+  margin-bottom: 4rem;
 }
 .shadow {
   background: #eee;
@@ -159,6 +161,7 @@ a {
   padding: 1rem 1rem;
   transition: transform 0.2s;
   border-radius: 0.3rem;
+  margin-bottom: 2.5rem;
 }
 
 .shadow:hover {
@@ -240,4 +243,48 @@ a {
   height: 30px;
   margin-top: 1rem;
   margin-bottom: 1rem;
+}
+.most-fav {
+  margin-top: -4rem;
+  background-color: #ffeef8;
+  height: 800px;
+}
+
+.center {
+  position: relative;
+  overflow: hidden;
+  width: 80vw;
+  height: 450px;
+  max-width: 800px;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 4rem;
+  display: flex;
+}
+article {
+  position: absolute;
+
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  transition: var(--transition);
+}
+article.activeSlide {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 0s;
+}
+article.nextSlide {
+  transform: translateX(100%);
+  transition: all 0s;
+}
+article.prevSlide {
+  transform: translateX(-100%);
+  transition: all 0s;
+}
+
+.btn-cont {
+  position: relative;
+  padding-top: 3rem;
+  left: 35%;
 }

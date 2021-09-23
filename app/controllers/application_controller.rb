@@ -33,10 +33,17 @@ post "/user" do
 post "/user/:user_name/cart" do
   find_user = User.find_by(user_name:params[:user_name])
   cart_active = find_user.carts.find_by(status:1)
+
+  if !cart_active
+
+    cart_active = Cart.create(user_id:find_user.id)
+
+end
   item_new = Item.create(name:params[:name], url:params[:url], price:params[:price])
   cart_active.items<<item_new
   item_new.to_json
 end
+
 
 get "/user/:user_name/cart" do
    find_carts = User.find_by(user_name:params[:user_name])
@@ -52,7 +59,7 @@ end
 end
  get "/user/:user_name/fav" do
  find_fav = User.find_by(user_name:params[:user_name])
- find_fav.favorites.to_json
+ find_fav.favorites.order(:name).to_json
  end
 
  delete "/user/:user_name/fav/:id" do
@@ -71,22 +78,8 @@ end
 # item_to_repeat.to_json
 # end
 
-
-patch "/user/:id/cart/:itemid" do
-find_user = User.find_by(params[:id])
-# binding.pry
-
- cart_active = find_user.carts.find_by(status:1)
-# cart_active = find_user.carts.where("status" =>1)
-
-item_to_repeat = cart_active.items.find(params[:itemid])
-item_to_repeat.update(quantity: params[:quantity])
-# find_user.increase_quantity
-item_to_repeat.to_json
-end
-
 patch"/disc/:id" do
-  find_user = User.find_by(params[:id])
+  find_user = User.find(params[:id])
   cart_active = find_user.carts.find_by(status:1)
 
  cart_active.update(discount:params[:discount])
@@ -103,6 +96,13 @@ end
 
 
 
+patch "/user/:id/cart/:itemid" do
+find_user = User.find(params[:id])
+ cart_active = find_user.carts.find_by(status:1)
+item_to_repeat = cart_active.items.find(params[:itemid])
+item_to_repeat.update(quantity: params[:quantity])
+item_to_repeat.to_json
+end
 
 
 get "/fav" do
@@ -114,7 +114,7 @@ Cart.where(status:1).to_json
 end
 
 get'/bestsellers' do
-result = Cart.joins(:items).group(:name, :url). order("count_id DESC").count(:id)
+result = Cart.joins(:items).group(:name, :url).order("count_id DESC").count(:id)
 result.to_json
 end
 
@@ -126,7 +126,12 @@ end
 # get "/cart" do
 #   Cart.all.to_json
 # end
-
+patch "/user/:id/checkout" do
+user = User.find(params[:id])
+ cart_active = find_user.carts.find_by(status:1)
+ cart_active.update(status:params[:status])
+cart_active.to_json
+end
 get "/total/:id" do
 user = User.find(params[:id])
 result =user.total_items

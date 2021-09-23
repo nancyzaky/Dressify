@@ -4,14 +4,14 @@ const CartItem = ({ item, handleRemove, user, changeTotal }) => {
   const [quantity, setQuantity] = useState(item.quantity);
 
   const fetchUrl = () => {
-    console.log(user.id, item.id);
     changeTotal();
-
     fetch(`http://localhost:9292/user/${user.id}/cart/${item.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ quantity: quantity }),
-    });
+    })
+      .then((resp) => resp.json())
+      .then((data) => console.log(data));
   };
   useEffect(() => {
     fetchUrl();
@@ -37,6 +37,7 @@ const CartItem = ({ item, handleRemove, user, changeTotal }) => {
       <button
         className="btn"
         onClick={() => {
+          console.log(item.id);
           handleRemove(item.id);
         }}
       >

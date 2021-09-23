@@ -3,7 +3,7 @@ import { Data, Links } from "./Data";
 import { BsSearch } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { NavContext } from "./Context.js";
-const Nav = ({ switchWoman, switchMan, woman, man }) => {
+const Nav = ({ switchWoman, switchMan, woman, man, changeUser, emptyCart }) => {
   const { openSubMenu, closeSubMenu, subMenuOpen } = useContext(NavContext);
   const handleHover = (e) => {
     let text = e.target.textContent;
@@ -78,6 +78,15 @@ const Nav = ({ switchWoman, switchMan, woman, man }) => {
                 </li>
               );
             })}
+            <Link
+              to="/"
+              onClick={() => {
+                changeUser({});
+                emptyCart();
+              }}
+            >
+              LogOut
+            </Link>
           </ul>
         </div>
         <div className="category-links-container">

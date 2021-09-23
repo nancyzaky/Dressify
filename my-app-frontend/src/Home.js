@@ -50,7 +50,7 @@ const Home = ({
             paddingLeft: "38rem",
             color: "white",
             fontWeight: "bolder",
-            fontFamily: "Anton, sans-serif;",
+            fontFamily: "Anton, sans-serif",
           }}
         >
           Get 10% off when you apply code "sinatra" on Check out!!

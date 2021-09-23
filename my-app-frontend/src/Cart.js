@@ -1,19 +1,29 @@
 import React, { useState, useEffect } from "react";
 import Picture from "./Picture";
 import CartItem from "./CartItem";
-const Cart = ({ user, cart, deleteFromCart, discount }) => {
+import { Link } from "react-router-dom";
+const Cart = ({ user, cart, deleteFromCart, discount, emptyCart }) => {
   const [tot, setTot] = useState(0);
   const [code, setCode] = useState("");
   const [wrongCode, setWrongCode] = useState(false);
+  const [codeApplied, setCodeApplied] = useState(false);
   const handleRemove = (productId) => {
     deleteFromCart(productId);
+  };
+  const handlePay = () => {
+    emptyCart();
+    fetch(`http://localhost:9292/user/${user.id}/checkout`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ status: 2 }),
+    });
   };
   const handleDiscount = () => {
     if (code !== discount) {
       setWrongCode(true);
       return;
     }
-    console.log("right");
+    setCodeApplied(true);
     fetch(`http://localhost:9292/disc/${user.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
@@ -21,6 +31,7 @@ const Cart = ({ user, cart, deleteFromCart, discount }) => {
     })
       .then((resp) => resp.json())
       .then((data) => {
+        console.log(data);
         setTot(data);
       });
   };
@@ -79,8 +90,16 @@ const Cart = ({ user, cart, deleteFromCart, discount }) => {
               Sorry! Wrong Code, Try a different code
             </p>
           )}
+          {codeApplied && (
+            <p style={{ color: "green" }}>Congrats!! Discount Code Applied.</p>
+          )}
           <br></br>
-          <button className="btn"> Check Out</button>
+          <button className="btn">
+            {" "}
+            <Link to="/checkout" onClick={handlePay}>
+              Check Out
+            </Link>
+          </button>
         </section>
       </div>
     </div>
