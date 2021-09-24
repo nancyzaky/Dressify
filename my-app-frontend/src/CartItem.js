@@ -4,7 +4,6 @@ const CartItem = ({ item, handleRemove, user, changeTotal }) => {
   const [quantity, setQuantity] = useState(item.quantity);
 
   const fetchUrl = () => {
-    changeTotal();
     fetch(`http://localhost:9292/user/${user.id}/cart/${item.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
@@ -12,6 +11,7 @@ const CartItem = ({ item, handleRemove, user, changeTotal }) => {
     })
       .then((resp) => resp.json())
       .then((data) => console.log(data));
+    changeTotal();
   };
   useEffect(() => {
     fetchUrl();

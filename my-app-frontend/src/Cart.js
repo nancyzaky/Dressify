@@ -7,6 +7,7 @@ const Cart = ({ user, cart, deleteFromCart, discount, emptyCart }) => {
   const [code, setCode] = useState("");
   const [wrongCode, setWrongCode] = useState(false);
   const [codeApplied, setCodeApplied] = useState(false);
+
   const handleRemove = (productId) => {
     deleteFromCart(productId);
   };
@@ -31,8 +32,9 @@ const Cart = ({ user, cart, deleteFromCart, discount, emptyCart }) => {
     })
       .then((resp) => resp.json())
       .then((data) => {
-        console.log(data);
-        setTot(data);
+        setTot((tot) => {
+          return data;
+        });
       });
   };
   const changeTotal = () => {

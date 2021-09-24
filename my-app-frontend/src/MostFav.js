@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { GrCaretPrevious, GrCaretNext } from "react-icons/gr";
+import { FcPrevious, FcNext } from "react-icons/fc";
 const MostFav = () => {
   const [mostFav, setMostFav] = useState([]);
   const [index, setIndex] = useState(0);
@@ -54,19 +54,17 @@ const MostFav = () => {
         })}
       </div>
       <section className="btn-cont">
-        <button
+        {/* <button
           className="btn"
           style={{
             marginRight: "8rem",
             marginLeft: "-1rem",
             backgroundColor: "white",
           }}
-        >
-          <GrCaretPrevious />
-        </button>
-        <button className="btn" style={{ backgroundColor: "white" }}>
-          <GrCaretNext />
-        </button>
+        > */}
+        <FcPrevious size="40px" />
+        {/* </button> */}
+        <FcNext size="40px" />
       </section>
     </section>
   );

@@ -11,9 +11,11 @@ const Home = ({
   addFav,
   deleteFav,
   fav,
+  search,
 }) => {
   const [products, setProducts] = useState([]);
   const [isloading, setIsLoading] = useState(true);
+  const [allitems, setAllItems] = useState([]);
   const fetchUrl = () => {
     fetch(
       `https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=30&categories=${
@@ -32,28 +34,43 @@ const Home = ({
       .then((data) => {
         setIsLoading(false);
         setProducts(data.results);
+        setAllItems(data.results);
       })
       .catch((err) => {
         console.error(err);
       });
   };
   useEffect(() => {
+    let wordLen = search.length;
+    let newProductsArr = allitems.filter((item) => {
+      return item.name.slice(0, wordLen) === search;
+    });
+    console.log(newProductsArr);
+    setProducts(newProductsArr);
+  }, [search]);
+  useEffect(() => {
     fetchUrl();
     setIsLoading(true);
-  }, [switchWoman]);
+  }, []);
   return (
     <>
       <div className="home_bg">
         <h1
           style={{
-            paddingTop: "10rem",
+            paddingTop: "6rem",
             paddingLeft: "38rem",
             color: "white",
             fontWeight: "bolder",
             fontFamily: "Anton, sans-serif",
           }}
         >
-          Get 10% off when you apply code "sinatra" on Check out!!
+          {user.user_name && (
+            <em style={{ color: "grey", paddingLeft: "15rem" }}>
+              {" "}
+              Welcome back {`${user.user_name}`}!
+            </em>
+          )}
+          <p></p>Get 10% off when you apply code "sinatra" on Check out!!
         </h1>
       </div>
       {isloading && <Loading />}
@@ -64,7 +81,7 @@ const Home = ({
           {products.map((item) => {
             return (
               <Product
-                key={item.articleCodes[0]}
+                // key={item.articleCodes[0]}
                 item={item}
                 showModal={showModal}
                 user={user}

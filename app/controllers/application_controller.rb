@@ -24,16 +24,19 @@ post "/user" do
   if find == nil
   user_new=User.create(user_name:params[:user_name], password:params[:password])
   cart_new = Cart.create(user_id:user_new.id)
+  outfit_new = Outfit.create(user_id:user_new.id)
+
   user_new.to_json
+
+
   end
   end
 
   # ////////////
 
-post "/user/:user_name/cart" do
-  find_user = User.find_by(user_name:params[:user_name])
+post "/user/:id/cart" do
+  find_user = User.find(params[:id])
   cart_active = find_user.carts.find_by(status:1)
-
   if !cart_active
 
     cart_active = Cart.create(user_id:find_user.id)
@@ -112,7 +115,9 @@ end
 get "/cart" do
 Cart.where(status:1).to_json
 end
-
+get "/outfit" do
+  Outfit.all.to_json
+end
 get'/bestsellers' do
 result = Cart.joins(:items).group(:name, :url).order("count_id DESC").count(:id)
 result.to_json
@@ -128,8 +133,9 @@ end
 # end
 patch "/user/:id/checkout" do
 user = User.find(params[:id])
- cart_active = find_user.carts.find_by(status:1)
+ cart_active = user.carts.find_by(status:1)
  cart_active.update(status:params[:status])
+ cart_new = Cart.create(user_id:user.id)
 cart_active.to_json
 end
 get "/total/:id" do
@@ -138,4 +144,28 @@ result =user.total_items
 result.to_json
 end
 
+
+get "/user/:id/archived" do
+user = User.find(params[:id])
+user_carts = user.carts.where(status: 2)
+user_carts.to_json(include: :items)
+end
+
+get "/user/:id/archived/desc" do
+user = User.find(params[:id])
+user_carts = user.carts.where(status: 2)
+user_carts.order("created_at DESC").to_json(include: :items)
+end
+
+post "/user/:id/outfit" do
+user = User.find(params[:id])
+pic= Item.create(url:params[:url])
+user.outfit << pic
+user.outfit.to_json
+
+end
+get "/user/:id/outfit" do
+  user = User.find(params[:id])
+  user.outfits.to_json
+end
 end

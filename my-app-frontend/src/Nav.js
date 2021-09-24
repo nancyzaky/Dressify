@@ -3,21 +3,38 @@ import { Data, Links } from "./Data";
 import { BsSearch } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { NavContext } from "./Context.js";
-const Nav = ({ switchWoman, switchMan, woman, man, changeUser, emptyCart }) => {
+const Nav = ({
+  switchWoman,
+  switchMan,
+  woman,
+  man,
+  changeUser,
+  emptyCart,
+  filterSearch,
+}) => {
   const { openSubMenu, closeSubMenu, subMenuOpen } = useContext(NavContext);
   const handleHover = (e) => {
     let text = e.target.textContent;
     let loc = e.target.getBoundingClientRect();
     let center = (loc.left + loc.right) / 2;
-    let bottom = loc.bottom + 30;
+    let bottom = loc.bottom + 14;
     openSubMenu({ center, bottom }, text);
   };
-  const handleMouseLeave = () => {
-    // closeSubMenu();
+  const handleMouseLeave = (e) => {
+    console.log(e.target.classList);
+    if (
+      // e.target.classList !== "cat-links-list" ||
+      // e.target.classList !== "submenu" ||
+      // e.target.classList !== "category-links" ||
+      e.target.classList !== "navbar"
+    ) {
+      // closeSubMenu();
+      console.log(e.target.classList);
+    }
   };
   return (
     <>
-      <nav className="navbar">
+      <nav className="navbar" onMouseOut={handleMouseLeave}>
         <div className="profile-icons-main">
           <ul className="profile-icons-ul">
             <li className="profile-icons-list">
@@ -65,6 +82,9 @@ const Nav = ({ switchWoman, switchMan, woman, man, changeUser, emptyCart }) => {
                 className="search-bar"
                 type="text"
                 placeholder="Search For Items and Brands"
+                onChange={(e) => {
+                  filterSearch(e.target.value);
+                }}
               ></input>
             </li>
             {Data.map((item) => {
@@ -78,6 +98,7 @@ const Nav = ({ switchWoman, switchMan, woman, man, changeUser, emptyCart }) => {
                 </li>
               );
             })}
+
             <Link
               to="/"
               onClick={() => {
@@ -98,7 +119,6 @@ const Nav = ({ switchWoman, switchMan, woman, man, changeUser, emptyCart }) => {
                   key={link.id}
                   className="cat-links-list"
                   onMouseOver={handleHover}
-                  onMouseOut={handleMouseLeave}
                 >
                   {link.text}
                 </Link>

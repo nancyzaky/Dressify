@@ -41,63 +41,64 @@ const LogIn = ({ changeUser, allUsers, addUser }) => {
   };
   return (
     <>
-      <h3 style={{ color: "white", textAlign: "center" }}>Log In</h3>
-      <div className="login-cont">
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="username" name="name" id="name" className="label">
-            User Name
-          </label>
-          <br></br>
-          <input
-            className="login"
-            type="text"
-            placeholder="Enter user name"
-            value={nameVal}
-            onChange={(e) => {
-              setNameVal(e.target.value);
-            }}
-          ></input>
-          <br></br>
-          <label
-            htmlFor="password"
-            name="password"
-            className="label"
-            id="password"
-          >
-            Password
-          </label>
-          <br></br>
-          <input
-            className="login"
-            type="text"
-            placeholder="Enter password"
-            value={passwordVal}
-            onChange={(e) => {
-              setPasswordVal(e.target.value);
-            }}
-          ></input>
-          <br></br>
-          <button className="btn" style={{ marginLeft: "40rem" }}>
-            Log In
-          </button>
-        </form>
+      <div className="login-all">
+        <h3 style={{ color: "white", textAlign: "center" }}>Log In</h3>
+        <div className="login-cont">
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="username" name="name" id="name" className="label">
+              User Name
+            </label>
+            <br></br>
+            <input
+              className="login"
+              type="text"
+              placeholder="Enter user name"
+              value={nameVal}
+              onChange={(e) => {
+                setNameVal(e.target.value);
+              }}
+            ></input>
+            <br></br>
+            <label
+              htmlFor="password"
+              name="password"
+              className="label"
+              id="password"
+            >
+              Password
+            </label>
+            <br></br>
+            <input
+              className="login"
+              type="text"
+              placeholder="Enter password"
+              value={passwordVal}
+              onChange={(e) => {
+                setPasswordVal(e.target.value);
+              }}
+            ></input>
+            <br></br>
+            <button className="btn" style={{ marginLeft: "40rem" }}>
+              Log In
+            </button>
+          </form>
+        </div>
+        <section>
+          <h3 style={{ marginLeft: "1rem", color: "red", marginTop: "4rem" }}>
+            Don't have an Account?Click here:{" "}
+            <Link to="/signup">
+              <em>Sign-up</em>
+            </Link>{" "}
+          </h3>
+        </section>
+        <section style={{ left: "50%" }}>
+          {signUp && (
+            <h1 style={{ textAlign: "center", color: "red" }}>
+              User Name doesn't exist, please sign-up
+            </h1>
+          )}
+        </section>
       </div>
-      <section>
-        <h5 style={{ marginLeft: "1rem" }}>
-          Don't have an Account?Click here:{" "}
-          <Link to="/signup">
-            <em>Sign-up</em>
-          </Link>{" "}
-          to Sign up
-        </h5>
-      </section>
-      <section style={{ left: "50%" }}>
-        {signUp && (
-          <h1 style={{ textAlign: "center", color: "red" }}>
-            User Name doesn't exist, please sign-up
-          </h1>
-        )}
-      </section>
     </>
   );
 };

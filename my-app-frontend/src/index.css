@@ -113,13 +113,12 @@ a {
   padding-bottom: 3rem;
   border-radius: var(--radius);
   transition: var(--transition);
-  transition-delay: 0.1s;
-  transition-duration: 0.4s;
-  padding-top: -3;
+  /* transition-delay: 0.1s; */
+  transition-duration: 0.6s;
 }
-/* .submenu.show {
+.submenu.show {
   display: block;
-} */
+}
 
 /* .submenu-center {
   display: grid;
@@ -216,7 +215,7 @@ a {
   border-right: 5px solid transparent;
   border-bottom: 6px solid white;
   margin-left: 3.5rem;
-  margin-top: -6px;
+  margin-top: -6.5px;
 }
 
 .btn {
@@ -236,7 +235,16 @@ a {
 .login-cont {
   margin-left: 1rem;
 }
-
+.login-all {
+  padding-top: -4rem;
+  background-image: url("/src/IMG3.JPG");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: black;
+  background-position: right;
+  /* width: 100%; */
+  height: 600px;
+}
 .login {
   margin-left: 2rem 2rem;
   width: 300px;
@@ -246,7 +254,8 @@ a {
 }
 .most-fav {
   margin-top: -4rem;
-  background-color: #ffeef8;
+  /* background-color: #ffeef8; */
+  background-color: black;
   height: 800px;
 }
 
@@ -286,5 +295,22 @@ article.prevSlide {
 .btn-cont {
   position: relative;
   padding-top: 3rem;
-  left: 35%;
+  left: 47%;
 }
+.archived {
+  height: max-content;
+  width: 100%;
+  background-color: powderblue;
+  padding-bottom: 2rem;
+  padding-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.pic-small {
+  height: 150px;
+  width: 150px;
+}
+/* .pics {
+  height: 300px;
+  width: 200px;
+} */

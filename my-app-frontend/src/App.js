@@ -22,7 +22,11 @@ function App() {
   const [cart, setCart] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
   const [itemExistModal, setItemExistModal] = useState(false);
+  const [search, setSearch] = useState("");
 
+  const filterSearch = (word) => {
+    setSearch(word);
+  };
   const addUser = (obj) => {
     setAllUsers([...allUsers, obj]);
   };
@@ -43,18 +47,42 @@ function App() {
     setFav([...fav, obj]);
   };
 
+  // const addToCart = (item) => {
+  //   let result = cart.filter((product) => {
+  //     return product.name === item.name;
+  //   });
+  //   if (result.length > 0) {
+  //     setItemExistModal(true);
+  //   } else {
+  //     fetch(`http://localhost:9292/user/${user.user_name}/cart`, {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({
+  //         user: user.user_name,
+  //         name: item.name,
+  //         price: item.price,
+  //         url: item.url,
+  //         quantity: 1,
+  //       }),
+  //     })
+  //       .then((resp) => resp.json())
+  //       .then((data) => {
+  //         console.log(data);
+  //         setCart([...cart, data]);
+  //       });
+  //   }
+  // };
   const addToCart = (item) => {
     let result = cart.filter((product) => {
-      return product.name === item.name;
+      return product.url === item.url;
     });
     if (result.length > 0) {
       setItemExistModal(true);
     } else {
-      fetch(`http://localhost:9292/user/${user.user_name}/cart`, {
+      fetch(`http://localhost:9292/user/${user.id}/cart`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          user: user.user_name,
           name: item.name,
           price: item.price,
           url: item.url,
@@ -142,6 +170,8 @@ function App() {
           man={man}
           changeUser={changeUser}
           emptyCart={emptyCart}
+          filterSearch={filterSearch}
+          user={user}
         />
         <SubMenu />
         {itemExistModal && <ExistModal />}
@@ -159,6 +189,7 @@ function App() {
               addFav={addFav}
               deleteFav={deleteFav}
               fav={fav}
+              search={search}
             />
           </Route>
 
@@ -168,10 +199,11 @@ function App() {
               user={user}
               deleteFromCart={deleteFromCart}
               discount={discount}
+              emptyCart={emptyCart}
             />
           </Route>
           <Route path="/checkout">
-            <CheckOut />
+            <CheckOut user={user} />
           </Route>
           <Route path="/account">
             <LogIn
