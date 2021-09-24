@@ -159,13 +159,14 @@ end
 
 post "/user/:id/outfit" do
 user = User.find(params[:id])
+outfit_active = user.outfits.find_by(status:"active")
 pic= Item.create(url:params[:url])
-user.outfit << pic
-user.outfit.to_json
+outfit_active << pic
+outfit_active.to_json
 
 end
 get "/user/:id/outfit" do
   user = User.find(params[:id])
-  user.outfits.to_json
+  user.to_json(include: {outfits:{include: :items}})
 end
 end

@@ -175,7 +175,7 @@ function App() {
         />
         <SubMenu />
         {itemExistModal && <ExistModal />}
-        {modal && <Modal closeModal={closeModal} />}
+        {modal && <Modal closeModal={closeModal} user={user} />}
         <Switch>
           <Route exact path="/">
             <Home

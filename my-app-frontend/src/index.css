@@ -101,9 +101,7 @@ a {
 
 .submenu {
   background-color: white;
-  box-shadow: var(--dark-shadow);
   position: absolute;
-  /* top: 10rem; */
   left: 50%;
   transform: translateX(-50%);
   z-index: 3;
@@ -113,17 +111,11 @@ a {
   padding-bottom: 3rem;
   border-radius: var(--radius);
   transition: var(--transition);
-  /* transition-delay: 0.1s; */
   transition-duration: 0.6s;
 }
 .submenu.show {
   display: block;
 }
-
-/* .submenu-center {
-  display: grid;
-  gap: 0.25rem 2rem;
-} */
 .col-2 {
   grid-template-columns: repeat(2, 1fr);
 }
@@ -133,32 +125,24 @@ a {
 .col-4 {
   grid-template-columns: repeat(4, 1fr);
 }
-.submenu h4 {
-  margin-bottom: 1.5rem;
-}
 
 .products {
   display: grid;
   background-color: lightgrey;
-  /* max-width: fit-content; */
   width: 100%;
   height: auto;
   margin-bottom: 4rem;
 }
 .shadow {
   background: #eee;
-  box-shadow: 0 10px 10px 4px lightblue;
   display: inline-block;
   margin-left: 3rem;
-
   width: 300px;
-  /* height: 300px; */
   margin-top: 2rem;
   margin-right: 2rem;
   text-align: center;
   border-color: transparent;
   padding: 1rem 1rem;
-  transition: transform 0.2s;
   border-radius: 0.3rem;
   margin-bottom: 2.5rem;
 }
@@ -166,6 +150,8 @@ a {
 .shadow:hover {
   cursor: pointer;
   transform: scale(1.02);
+  box-shadow: 0 10px 10px 4px lightblue;
+  transition: transform 0.2s;
 }
 .label {
   font-weight: bolder;

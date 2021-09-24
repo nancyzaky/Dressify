@@ -1,8 +1,8 @@
 class User < ActiveRecord::Base
 has_many  :favorites
+has_many :outfits
 has_many :carts
   enum status: {
-    pending: 0,
     active: 1,
     archived: 2
   }
