@@ -4,7 +4,10 @@ class CreateItem < ActiveRecord::Migration[6.1]
       t.string :name
       t.string :price
       t.string :url
-      t.integer :cart_id
+      t.integer :quantity
     end
   end
 end
+
+
+# joint table between the item and the cart and quantity

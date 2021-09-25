@@ -32,6 +32,7 @@ const LogIn = ({ changeUser, allUsers, addUser }) => {
       // }
 
       setLogged(true);
+      console.log(allUsers);
       history.push("/");
     } else {
       setSigUp(true);

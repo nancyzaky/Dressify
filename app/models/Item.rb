@@ -1,4 +1,4 @@
 class Item < ActiveRecord::Base
-belongs_to :cart
-belongs_to :outfit
+
+# has_many :users, through: :carts
 end

@@ -9,7 +9,6 @@ const SubMenu = () => {
     const { center, bottom } = location;
     asideMeasurements.current.style.left = `${center}px`;
     asideMeasurements.current.style.top = `${bottom}px`;
-    console.log(links.allpages);
   }, [location]);
   return (
     <>

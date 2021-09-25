@@ -16,28 +16,61 @@ const Home = ({
   const [products, setProducts] = useState([]);
   const [isloading, setIsLoading] = useState(true);
   const [allitems, setAllItems] = useState([]);
+  const handleData = (products) => {
+    products.forEach((item) => {
+      let newObj = {
+        name: item.name,
+        price: item.price.value,
+        url: item.images[0].url,
+      };
+      fetch(`http://localhost:9292/items`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newObj),
+      })
+        .then((resp) => resp.json())
+        .then((data) => console.log(data));
+    });
+  };
+  // const getdata = () => {
+  //   fetch(
+  //     `https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=30&categories=${
+  //       woman ? "ladies" : "men"
+  //     }_newarrivals_shoesacc`,
+  //     {
+  //       method: "GET",
+  //       headers: {
+  //         "x-rapidapi-host": "apidojo-hm-hennes-mauritz-v1.p.rapidapi.com",
+  //         "x-rapidapi-key":
+  //           "036db7d1abmsh7d62560990e81f3p1b6c0djsnf0406b51760c",
+  //       },
+  //     }
+  //   )
+  //     .then((resp) => resp.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       data.results.forEach((item) => {
+  //         let newObj = {
+  //           name: item.name,
+  //           url: item.images[0].url,
+  //           price: item.price.value,
+  //         };
+  //         fetch(`http://localhost:9292/items`, {
+  //           method: "POST",
+  //           headers: { "Content-Type": "application/json" },
+  //           body: JSON.stringify(newObj),
+  //         });
+  //       });
+  //     });
+  // };
   const fetchUrl = () => {
-    fetch(
-      `https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=30&categories=${
-        woman ? "ladies" : "men"
-      }_newarrivals_shoesacc`,
-      {
-        method: "GET",
-        headers: {
-          "x-rapidapi-host": "apidojo-hm-hennes-mauritz-v1.p.rapidapi.com",
-          "x-rapidapi-key":
-            "036db7d1abmsh7d62560990e81f3p1b6c0djsnf0406b51760c",
-        },
-      }
-    )
+    fetch(`http://localhost:9292/items`)
       .then((resp) => resp.json())
       .then((data) => {
+        console.log(data);
         setIsLoading(false);
-        setProducts(data.results);
-        setAllItems(data.results);
-      })
-      .catch((err) => {
-        console.error(err);
+        setProducts(data);
+        setAllItems(data);
       });
   };
   useEffect(() => {
@@ -81,7 +114,7 @@ const Home = ({
           {products.map((item) => {
             return (
               <Product
-                // key={item.articleCodes[0]}
+                key={item.id}
                 item={item}
                 showModal={showModal}
                 user={user}
@@ -94,6 +127,7 @@ const Home = ({
           })}
         </ul>
       </div>
+      {/* <button onClick={() => getdata()}>data</button> */}
       <MostFav />
     </>
   );

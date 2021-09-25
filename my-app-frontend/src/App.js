@@ -73,25 +73,22 @@ function App() {
   //   }
   // };
   const addToCart = (item) => {
+    console.log(item);
+    console.log(cart);
     let result = cart.filter((product) => {
-      return product.url === item.url;
+      return product.id === item.id;
     });
     if (result.length > 0) {
       setItemExistModal(true);
+      return;
     } else {
       fetch(`http://localhost:9292/user/${user.id}/cart`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: item.name,
-          price: item.price,
-          url: item.url,
-          quantity: 1,
-        }),
+        body: JSON.stringify(item),
       })
         .then((resp) => resp.json())
         .then((data) => {
-          console.log(data);
           setCart([...cart, data]);
         });
     }
@@ -102,7 +99,7 @@ function App() {
       return item.id !== productId;
     });
     setCart(newCart);
-    fetch(`http://localhost:9292/user/${user.user_name}/cart/${productId}`, {
+    fetch(`http://localhost:9292/user/${user.id}/cart/${productId}`, {
       method: "DELETE",
     });
   };
@@ -121,24 +118,26 @@ function App() {
     setShowModal(false);
   };
   const fetchUrl = () => {
+    console.log(user);
     if (user) {
-      fetch(`http://localhost:9292/user/${user.user_name}/cart`)
+      fetch(`http://localhost:9292/user/${user.id}/cart`)
         .then((resp) => resp.json())
         .then((data) => {
           if (data) {
+            console.log(data);
             setCart(data.items);
           } else {
             setCart([]);
           }
         });
-      fetch(`http://localhost:9292/user/${user.user_name}/fav`)
-        .then((resp) => resp.json())
-        .then((data) => {
-          if (data) {
-            console.log(data);
-            setFav(data);
-          }
-        });
+      // fetch(`http://localhost:9292/user/${user.user_name}/fav`)
+      //   .then((resp) => resp.json())
+      //   .then((data) => {
+      //     if (data) {
+      //       console.log(data);
+      //       setFav(data);
+      //     }
+      //   });
     } else {
       console.log("none");
       setFav([]);

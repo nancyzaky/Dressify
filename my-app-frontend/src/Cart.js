@@ -55,6 +55,7 @@ const Cart = ({ user, cart, deleteFromCart, discount, emptyCart }) => {
       <div className="products">
         <ul>
           {cart.map((item) => {
+            console.log(item);
             return (
               <CartItem
                 item={item}

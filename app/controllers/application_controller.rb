@@ -4,10 +4,17 @@ class ApplicationController < Sinatra::Base
 
   # Add your routes here
   get "/user" do
-   User.all.to_json(include: {carts: {include: :items}})
+   User.all.to_json(include: :carts)
   end
 
 
+  post '/items' do
+    Item.create(name:params[:name], url:params[:url], price:params[:price])
+    Item.all.to_json
+  end
+get "/items" do
+   Item.all.to_json
+end
 
  get "/user/:user_name" do
  find_user = User.find_by(user_name:params[:user_name])
@@ -24,9 +31,9 @@ post "/user" do
   if find == nil
   user_new=User.create(user_name:params[:user_name], password:params[:password])
   cart_new = Cart.create(user_id:user_new.id)
-  outfit_new = Outfit.create(user_id:user_new.id)
+  # user_new.carts <<cart_new
 
-  user_new.to_json
+  user_new.to_json(include: :carts)
 
 
   end
@@ -34,31 +41,37 @@ post "/user" do
 
   # ////////////
 
-post "/user/:id/cart" do
-  find_user = User.find(params[:id])
+post "/user/:userid/cart" do
+  find_user = User.find(params[:userid])
   cart_active = find_user.carts.find_by(status:1)
+  find_item = Item.find(params[:id])
   if !cart_active
 
     cart_active = Cart.create(user_id:find_user.id)
 
 end
-  item_new = Item.create(name:params[:name], url:params[:url], price:params[:price])
-  cart_active.items<<item_new
-  item_new.to_json
+#  if !find_item
+#   find_item = Item.create(name:params[:name], url:params[:url], price:params[:price])
+#  end
+
+  cart_item_new = Cartitem.create(item_id:find_item.id, cart_id: cart_active.id, quantity:1)
+
+  find_item.to_json
+
 end
 
 
-get "/user/:user_name/cart" do
-   find_carts = User.find_by(user_name:params[:user_name])
+get "/user/:id/cart" do
+   find_carts = User.find(params[:id])
    cart_active = find_carts.carts.find_by(status:1)
    cart_active.to_json(include: :items)
 end
- delete "/user/:user_name/cart/:id" do
- find_user = User.find_by(user_name:params[:user_name])
+ delete "/user/:userid/cart/:id" do
+ find_user = User.find(params[:userid])
  cart_items = find_user.carts.find_by(status:1)
- cart_item = cart_items.items.find(params[:id])
- cart_item.destroy
- cart_item.to_json
+ item = cart_items.cartitems.find_by(item_id:params[:id])
+ item.destroy
+item.to_json
 end
  get "/user/:user_name/fav" do
  find_fav = User.find_by(user_name:params[:user_name])
@@ -80,7 +93,9 @@ end
 # # find_user.increase_quantity
 # item_to_repeat.to_json
 # end
-
+get"/cartitem"do
+Cartitem.all.to_json
+end
 patch"/disc/:id" do
   find_user = User.find(params[:id])
   cart_active = find_user.carts.find_by(status:1)

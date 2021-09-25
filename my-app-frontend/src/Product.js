@@ -26,9 +26,10 @@ const Product = ({ item, showModal, user, addToCart, addFav, fav }) => {
 
   const handleClick = () => {
     addToCart({
+      id: item.id,
       name: item.name,
-      price: item.price.value,
-      url: item.images[0].url,
+      price: item.price,
+      url: item.url,
       quantity: 1,
     });
   };
@@ -36,11 +37,12 @@ const Product = ({ item, showModal, user, addToCart, addFav, fav }) => {
   return (
     <li className="shadow">
       <Picture
-        pic={item.images ? item.images[0].url : item.url}
+        // pic={item.images ? item.images[0].url : item.url}
+        pic={item.url}
         id={new Date().getTime()}
       />
       <h4>{item.name}</h4>
-      <h5>${item.price.value}</h5>
+      <h5>${item.price}</h5>
       {/* <ul style={{ display: "grid" }}>
         {item.rgbColors.map((color) => {
           return (

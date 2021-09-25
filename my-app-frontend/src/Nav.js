@@ -22,19 +22,19 @@ const Nav = ({
   };
   const handleMouseLeave = (e) => {
     console.log(e.target.classList);
-    if (
-      // e.target.classList !== "cat-links-list" ||
-      // e.target.classList !== "submenu" ||
-      // e.target.classList !== "category-links" ||
-      e.target.classList !== "navbar"
-    ) {
-      // closeSubMenu();
-      console.log(e.target.classList);
+    // e.target.classList !== "cat-links-list" ||
+    // e.target.classList !== "submenu" ||
+    if (!e.target.classList.contains("cat-links-list")) {
+      console.log("not");
+      closeSubMenu();
     }
+    // e.target.classList !== "navbar"
+
+    //
   };
   return (
     <>
-      <nav className="navbar" onMouseOut={handleMouseLeave}>
+      <nav className="navbar">
         <div className="profile-icons-main">
           <ul className="profile-icons-ul">
             <li className="profile-icons-list">
@@ -110,7 +110,7 @@ const Nav = ({
             </Link>
           </ul>
         </div>
-        <div className="category-links-container">
+        <div className="category-links-container" onMouseOut={handleMouseLeave}>
           <ul className="category-links">
             {Links.map((link) => {
               return (

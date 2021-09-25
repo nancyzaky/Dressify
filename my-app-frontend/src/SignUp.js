@@ -13,6 +13,7 @@ const SignUp = (addUser, changeUser) => {
     })
       .then((resp) => resp.json())
       .then((data) => {
+        console.log(data);
         changeUser(data);
         addUser(data);
       });
