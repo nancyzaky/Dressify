@@ -34,6 +34,11 @@ function App() {
     setUser(obj);
   };
   const emptyCart = () => {
+    fetch(`http://localhost:9292/user/${user.id}/checkout`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ status: 2 }),
+    });
     setCart([]);
     setFav([]);
   };
@@ -130,14 +135,14 @@ function App() {
             setCart([]);
           }
         });
-      // fetch(`http://localhost:9292/user/${user.user_name}/fav`)
-      //   .then((resp) => resp.json())
-      //   .then((data) => {
-      //     if (data) {
-      //       console.log(data);
-      //       setFav(data);
-      //     }
-      //   });
+      fetch(`http://localhost:9292/user/${user.id}/favorite`)
+        .then((resp) => resp.json())
+        .then((data) => {
+          if (data) {
+            setFav(data);
+            console.log(data);
+          }
+        });
     } else {
       console.log("none");
       setFav([]);
@@ -146,7 +151,6 @@ function App() {
   };
 
   useEffect(() => {
-    console.log(user);
     fetchUrl();
   }, [user]);
   useEffect(() => {

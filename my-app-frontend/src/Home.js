@@ -128,7 +128,7 @@ const Home = ({
         </ul>
       </div>
       {/* <button onClick={() => getdata()}>data</button> */}
-      <MostFav />
+      <MostFav product={products} />
     </>
   );
 };

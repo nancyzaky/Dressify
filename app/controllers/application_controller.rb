@@ -15,7 +15,9 @@ class ApplicationController < Sinatra::Base
 get "/items" do
    Item.all.to_json
 end
-
+get "/item/:id" do
+  Item.find(params[:id]).to_json
+end
  get "/user/:user_name" do
  find_user = User.find_by(user_name:params[:user_name])
  find_user.to_json(include: :favorites)
@@ -32,7 +34,7 @@ post "/user" do
   user_new=User.create(user_name:params[:user_name], password:params[:password])
   cart_new = Cart.create(user_id:user_new.id)
   # user_new.carts <<cart_new
-
+  User.allname << user_new
   user_new.to_json(include: :carts)
 
 
@@ -54,7 +56,8 @@ end
 #   find_item = Item.create(name:params[:name], url:params[:url], price:params[:price])
 #  end
 
-  cart_item_new = Cartitem.create(item_id:find_item.id, cart_id: cart_active.id, quantity:1)
+  cart_item_new = Cartitem.create(item_id:find_item.id, cart_id: cart_active.id)
+  cart_item_new.update(quantity:1)
 
   find_item.to_json
 
@@ -73,14 +76,16 @@ end
  item.destroy
 item.to_json
 end
- get "/user/:user_name/fav" do
- find_fav = User.find_by(user_name:params[:user_name])
- find_fav.favorites.order(:name).to_json
+
+ get "/user/:id/favorite" do
+ find_fav = User.find(params[:id])
+
+ find_fav.favorite_items.to_json
  end
 
- delete "/user/:user_name/fav/:id" do
- find_fav = User.find_by(user_name:params[:user_name])
- fav_item = find_fav.favorites.find(params[:id])
+ delete "/user/:userid/favorite/:id" do
+ find_fav = User.find(params[:userid])
+ fav_item = find_fav.favorite_items.find(params[:id])
  fav_item.destroy
  fav_item.to_json
 end
@@ -96,7 +101,7 @@ end
 get"/cartitem"do
 Cartitem.all.to_json
 end
-patch"/disc/:id" do
+patch"/user/:id/discount" do
   find_user = User.find(params[:id])
   cart_active = find_user.carts.find_by(status:1)
 
@@ -106,10 +111,14 @@ result.to_json
 
 end
 
-  post "/fav" do
-  find = User.all.find_by(user_name:params[:user])
-  fav = Favorite.create(name:params[:name], url: params[:url], price:params[:price], user_id: find.id)
-  fav.to_json
+  post "/user/:userid/favorite" do
+
+  find_user = User.find(params[:userid])
+
+  find_item = Item.find(params[:id])
+  fav_new = Favorite.create(user_id:find_user.id, item_id:find_item.id)
+
+  find_item.to_json
   end
 
 
@@ -124,8 +133,13 @@ end
 
 
 get "/fav" do
-  Favorite.all.to_json
+   Favorite.all.to_json
 end
+
+# get '/user/items/:id' do
+#   user = User.find(params[:id])
+#   user.favorite_items.to_json
+# end
 
 get "/cart" do
 Cart.where(status:1).to_json
@@ -139,7 +153,7 @@ result.to_json
 end
 
 get "/mostfav" do
- result =  Favorite.group(:url).order('count_id DESC').limit(5).count(:id)
+ result =  Favorite.group(:item_id).order('count_id DESC').limit(10).count(:id)
  result.to_json
 end
 # # Shoppingsession
@@ -153,12 +167,14 @@ user = User.find(params[:id])
  cart_new = Cart.create(user_id:user.id)
 cart_active.to_json
 end
+
 get "/total/:id" do
 user = User.find(params[:id])
-result =user.total_items
+cart_active = user.carts.find_by(status:1)
+
+result = cart_active.total_items
 result.to_json
 end
-
 
 get "/user/:id/archived" do
 user = User.find(params[:id])

@@ -4,7 +4,7 @@ import Modal from "./Modal";
 const Fav = ({ user, fav, deleteFav }) => {
   const handleRemove = (id) => {
     deleteFav(id);
-    fetch(`http://localhost:9292/user/${user.user_name}/fav/${id}`, {
+    fetch(`http://localhost:9292/user/${user.id}/favorite/${id}`, {
       method: "DELETE",
     });
   };

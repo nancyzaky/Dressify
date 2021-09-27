@@ -4,17 +4,15 @@ import { AiFillHeart } from "react-icons/ai";
 const Product = ({ item, showModal, user, addToCart, addFav, fav }) => {
   const handleFav = () => {
     let result = fav.filter((product) => {
-      return product.name === item.name;
+      return product.id === item.id;
     });
-    if (result.length == 0) {
-      fetch(`http://localhost:9292/fav`, {
+    if (result.length === 0) {
+      // console.log(item.id, user.id);
+      fetch(`http://localhost:9292/user/${user.id}/favorite`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          user: user.user_name,
-          name: item.name,
-          price: item.price.value,
-          url: item.images[0].url,
+          id: item.id,
         }),
       })
         .then((resp) => resp.json())

@@ -10,22 +10,16 @@ const Cart = ({ user, cart, deleteFromCart, discount, emptyCart }) => {
 
   const handleRemove = (productId) => {
     deleteFromCart(productId);
+    changeTotal();
   };
-  const handlePay = () => {
-    emptyCart();
-    fetch(`http://localhost:9292/user/${user.id}/checkout`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ status: 2 }),
-    });
-  };
+
   const handleDiscount = () => {
     if (code !== discount) {
       setWrongCode(true);
       return;
     }
     setCodeApplied(true);
-    fetch(`http://localhost:9292/disc/${user.id}`, {
+    fetch(`http://localhost:9292/user/${user.id}/discount`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ discount: "true" }),
@@ -46,9 +40,7 @@ const Cart = ({ user, cart, deleteFromCart, discount, emptyCart }) => {
         })
       );
   };
-  useEffect(() => {
-    changeTotal();
-  }, [handleRemove]);
+
   return (
     <div>
       <h1 style={{ textAlign: "center", color: "white" }}>Shopping Cart</h1>
@@ -99,7 +91,7 @@ const Cart = ({ user, cart, deleteFromCart, discount, emptyCart }) => {
           <br></br>
           <button className="btn">
             {" "}
-            <Link to="/checkout" onClick={handlePay}>
+            <Link to="/checkout" onClick={emptyCart}>
               Check Out
             </Link>
           </button>

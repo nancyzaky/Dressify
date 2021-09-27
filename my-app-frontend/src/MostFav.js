@@ -7,8 +7,16 @@ const MostFav = () => {
     fetch("http://localhost:9292/mostfav")
       .then((resp) => resp.json())
       .then((data) => {
+        console.log(data);
         let result = Object.keys(data);
-        setMostFav(result);
+        result.forEach((item) => {
+          fetch(`http://localhost:9292/item/${item}`)
+            .then((resp) => resp.json())
+            .then((data) => {
+              console.log(data);
+              setMostFav([...mostFav, data]);
+            });
+        });
       });
   };
   useEffect(() => {
@@ -20,7 +28,7 @@ const MostFav = () => {
     } else if (index < 0) {
       setIndex(mostFav.length - 1);
     }
-  }, [index]);
+  }, [index, mostFav]);
   useEffect(() => {
     let autoSlide = setInterval(() => {
       setIndex(index + 1);
@@ -48,7 +56,7 @@ const MostFav = () => {
           }
           return (
             <article className={position} key={favIndex}>
-              <img src={fav} alt="fav" />
+              <img src={fav.url} alt="fav" />
             </article>
           );
         })}
