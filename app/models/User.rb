@@ -1,8 +1,7 @@
 class User < ActiveRecord::Base
-  attr_accessor :names
 has_many :carts
-
-# has_many :items_in_cart, through: :carts, through: :cartitems, source: :item
+has_many :cartitems, through: :carts
+has_many :items_in_cart, through: :cartitems, source: :item
 has_many :favorites
 has_many :favorite_items, through: :favorites, source: :item
   enum status: {

@@ -72,7 +72,8 @@ end
  delete "/user/:userid/cart/:id" do
  find_user = User.find(params[:userid])
  cart_items = find_user.carts.find_by(status:1)
- item = cart_items.cartitems.find_by(item_id:params[:id])
+  item = cart_items.cartitems.find_by(item_id:params[:id])
+# item = find_user.items.find(params[:id])
  item.destroy
 item.to_json
 end
@@ -147,15 +148,13 @@ end
 get "/outfit" do
   Outfit.all.to_json
 end
+
 get'/bestsellers' do
-result = Cart.joins(:items).group(:name, :url).order("count_id DESC").count(:id)
+result = Cart.joins(:items).group(:url).order("count_id DESC").limit(7).count(:id)
 result.to_json
 end
 
-get "/mostfav" do
- result =  Favorite.group(:item_id).order('count_id DESC').limit(10).count(:id)
- result.to_json
-end
+
 # # Shoppingsession
 # get "/cart" do
 #   Cart.all.to_json

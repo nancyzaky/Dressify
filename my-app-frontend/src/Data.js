@@ -11,13 +11,8 @@ import {
 import { BiTrendingUp } from "react-icons/bi";
 import { FaHome } from "react-icons/fa";
 export const Data = [
-  {
-    id: 1,
-    icon: <AiOutlineShoppingCart className="icon" />,
-    url: "/cart",
-  },
-  { id: 2, icon: <RiHeartLine className="icon" />, url: "./fav" },
-  { id: 3, icon: <BsPerson className="icon" />, url: "./account" },
+  { id: 1, icon: <RiHeartLine className="icon" />, url: "./fav" },
+  { id: 2, icon: <BsPerson className="icon" />, url: "./account" },
 ];
 
 export const Links = [

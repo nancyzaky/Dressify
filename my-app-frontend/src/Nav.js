@@ -3,6 +3,8 @@ import { Data, Links } from "./Data";
 import { BsSearch } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { NavContext } from "./Context.js";
+import { AiOutlineShoppingCart } from "react-icons/ai";
+
 const Nav = ({
   switchWoman,
   switchMan,
@@ -38,7 +40,7 @@ const Nav = ({
         <div className="profile-icons-main">
           <ul className="profile-icons-ul">
             <li className="profile-icons-list">
-              <h1>ASOS</h1>
+              <h1>SHOP</h1>
             </li>
             <li
               className={`${
@@ -76,7 +78,6 @@ const Nav = ({
                 <h3>Men</h3>
               </span>
             </li>
-
             <li className="profile-icons-list" style={{ paddingLeft: "8rem" }}>
               <input
                 className="search-bar"
@@ -98,7 +99,9 @@ const Nav = ({
                 </li>
               );
             })}
-
+            <Link to="/cart">
+              <AiOutlineShoppingCart className="icon" />
+            </Link>
             <Link
               to="/"
               onClick={() => {

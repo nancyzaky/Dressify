@@ -4,19 +4,11 @@ const MostFav = () => {
   const [mostFav, setMostFav] = useState([]);
   const [index, setIndex] = useState(0);
   const fetchUrl = () => {
-    fetch("http://localhost:9292/mostfav")
+    fetch("http://localhost:9292/bestsellers")
       .then((resp) => resp.json())
       .then((data) => {
-        console.log(data);
-        let result = Object.keys(data);
-        result.forEach((item) => {
-          fetch(`http://localhost:9292/item/${item}`)
-            .then((resp) => resp.json())
-            .then((data) => {
-              console.log(data);
-              setMostFav([...mostFav, data]);
-            });
-        });
+        console.log(Object.keys(data));
+        setMostFav(Object.keys(data));
       });
   };
   useEffect(() => {
@@ -56,7 +48,7 @@ const MostFav = () => {
           }
           return (
             <article className={position} key={favIndex}>
-              <img src={fav.url} alt="fav" />
+              <img src={fav} alt="fav" />
             </article>
           );
         })}
