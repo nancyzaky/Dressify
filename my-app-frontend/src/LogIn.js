@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
+import { NavContext } from "./Context";
 
 const LogIn = ({ changeUser, allUsers, addUser }) => {
   let history = useHistory();
@@ -7,6 +8,8 @@ const LogIn = ({ changeUser, allUsers, addUser }) => {
   const [logged, setLogged] = useState(false);
   const [passwordVal, setPasswordVal] = useState("");
   const [signUp, setSigUp] = useState(false);
+  const { closeSubMenu } = useContext(NavContext);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     let newUser = { user_name: nameVal, password: passwordVal };
@@ -14,22 +17,9 @@ const LogIn = ({ changeUser, allUsers, addUser }) => {
       return user.user_name === nameVal;
     });
     if (result.length > 0) {
-      console.log(result);
       changeUser(result[0]);
-      // } else {
-      //   fetch("http://localhost:9292/user", {
-      //     method: "POST",
-      //     headers: { "Content-Type": "application/json" },
-      //     body: JSON.stringify(newUser),
-      //   })
-      //     .then((resp) => resp.json())
-      //     .then((data) => {
-      //       console.log(data);
-      //       changeUser(data);
-      //       console.log(data);
-      //       addUser(data);
-      //     });
-      // }
+
+      //   fetch("http://localhost:9292/user",
 
       setLogged(true);
       console.log(allUsers);
@@ -42,7 +32,7 @@ const LogIn = ({ changeUser, allUsers, addUser }) => {
   };
   return (
     <>
-      <div className="login-all">
+      <div className="login-all" onMouseOver={closeSubMenu}>
         <h3 style={{ color: "white", textAlign: "center" }}>Log In</h3>
         <div className="login-cont">
           <form onSubmit={handleSubmit}>

@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Picture from "./Picture";
 import CartItem from "./CartItem";
 import { Link } from "react-router-dom";
+import { NavContext } from "./Context";
+
 const Cart = ({ user, cart, deleteFromCart, discount, emptyCart }) => {
   const [tot, setTot] = useState(0);
   const [code, setCode] = useState("");
   const [wrongCode, setWrongCode] = useState(false);
   const [codeApplied, setCodeApplied] = useState(false);
+  const { closeSubMenu } = useContext(NavContext);
 
   const handleRemove = (productId) => {
     deleteFromCart(productId);
@@ -34,15 +37,18 @@ const Cart = ({ user, cart, deleteFromCart, discount, emptyCart }) => {
   const changeTotal = () => {
     fetch(`http://localhost:9292/total/${user.id}`)
       .then((resp) => resp.json())
-      .then((data) =>
+      .then((data) => {
+        console.log(data);
         setTot((tot) => {
           return data;
-        })
-      );
+        });
+      });
   };
-
+  useEffect(() => {
+    changeTotal();
+  }, []);
   return (
-    <div>
+    <div onMouseOver={closeSubMenu}>
       <h1 style={{ textAlign: "center", color: "white" }}>Shopping Cart</h1>
       <div className="products">
         <ul>

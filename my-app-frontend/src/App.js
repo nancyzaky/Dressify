@@ -11,6 +11,7 @@ import Fav from "./Fav";
 import ExistModal from "./ExistModal";
 import SignUp from "./SignUp";
 import CheckOut from "./CheckOut";
+import Category from "./Category";
 
 function App() {
   const [discount, setDiscount] = useState("sinatra");
@@ -52,34 +53,7 @@ function App() {
     setFav([...fav, obj]);
   };
 
-  // const addToCart = (item) => {
-  //   let result = cart.filter((product) => {
-  //     return product.name === item.name;
-  //   });
-  //   if (result.length > 0) {
-  //     setItemExistModal(true);
-  //   } else {
-  //     fetch(`http://localhost:9292/user/${user.user_name}/cart`, {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({
-  //         user: user.user_name,
-  //         name: item.name,
-  //         price: item.price,
-  //         url: item.url,
-  //         quantity: 1,
-  //       }),
-  //     })
-  //       .then((resp) => resp.json())
-  //       .then((data) => {
-  //         console.log(data);
-  //         setCart([...cart, data]);
-  //       });
-  //   }
-  // };
   const addToCart = (item) => {
-    console.log(item);
-    console.log(cart);
     let result = cart.filter((product) => {
       return product.id === item.id;
     });
@@ -140,9 +114,12 @@ function App() {
         .then((data) => {
           if (data) {
             setFav(data);
-            console.log(data);
           }
         });
+
+      fetch(`http://localhost:9292/user/${user.id}/outfit`)
+        .then((resp) => resp.json())
+        .then((data) => console.log(data));
     } else {
       console.log("none");
       setFav([]);
@@ -220,6 +197,21 @@ function App() {
           </Route>
           <Route path="/fav">
             <Fav user={user} fav={fav} deleteFav={deleteFav} />
+          </Route>
+          <Route path="/:word">
+            <Category
+              woman={woman}
+              man={man}
+              showModal={showModal}
+              woman={woman}
+              switchWoman={switchWoman}
+              user={user}
+              addToCart={addToCart}
+              addFav={addFav}
+              deleteFav={deleteFav}
+              fav={fav}
+              search={search}
+            />
           </Route>
         </Switch>
         <Footer />

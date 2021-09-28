@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useRef } from "react";
 import { NavContext } from "./Context";
+import { Link } from "react-router-dom";
 
 const SubMenu = () => {
   const { openSubMenu, closeSubMenu, subMenuOpen, location, links } =
@@ -22,8 +23,13 @@ const SubMenu = () => {
           {links.allpages.length > 0 &&
             links.allpages.map((link) => {
               return (
-                <li>
-                  <p style={{ color: "black" }}>{link}</p>
+                <li className="cats">
+                  <Link
+                    to={`/${links.page}-${link}`}
+                    style={{ color: "black" }}
+                  >
+                    {link}
+                  </Link>
                 </li>
               );
             })}

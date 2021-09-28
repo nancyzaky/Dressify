@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Picture from "./Picture";
 import Modal from "./Modal";
+import { NavContext } from "./Context";
+
 const Fav = ({ user, fav, deleteFav }) => {
   const handleRemove = (id) => {
     deleteFav(id);
@@ -8,9 +10,10 @@ const Fav = ({ user, fav, deleteFav }) => {
       method: "DELETE",
     });
   };
+  const { closeSubMenu } = useContext(NavContext);
 
   return (
-    <>
+    <div onMouseOver={closeSubMenu}>
       <h3 style={{ color: "white", textAlign: "center" }}>Favorite items</h3>
       <div className="products">
         <ul>
@@ -28,7 +31,7 @@ const Fav = ({ user, fav, deleteFav }) => {
           })}
         </ul>
       </div>
-    </>
+    </div>
   );
 };
 

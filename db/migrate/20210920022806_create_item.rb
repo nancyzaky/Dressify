@@ -4,7 +4,6 @@ class CreateItem < ActiveRecord::Migration[6.1]
       t.string :name
       t.string :price
       t.string :url
-      t.integer :quantity
     end
   end
 end

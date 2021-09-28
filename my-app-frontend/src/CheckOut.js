@@ -1,6 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Archived from "./Archived";
+import { NavContext } from "./Context";
+
 const CheckOut = ({ user }) => {
+  const { closeSubMenu } = useContext(NavContext);
+
   const [archived, setArchived] = useState([]);
   useEffect(() => {
     fetch(`http://localhost:9292/user/${user.id}/archived`)
@@ -11,7 +15,7 @@ const CheckOut = ({ user }) => {
       });
   }, []);
   return (
-    <div style={{ backgroundColor: "white" }}>
+    <div style={{ backgroundColor: "white" }} onMouseOver={closeSubMenu}>
       <h3>Previous orders</h3>
       <h5>Total Orders: {archived.length} orders</h5>
 

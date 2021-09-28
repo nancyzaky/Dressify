@@ -14,14 +14,13 @@ const CartItem = ({ item, handleRemove, user, changeTotal }) => {
     changeTotal();
   };
   useEffect(() => {
-    // console.log(item.quantity);
     fetchUrl();
   }, [quantity]);
   return (
     <li className="shadow">
       <Picture pic={item.url} />
       <h4>{item.name}</h4>
-      <h5>${item.price}</h5>
+      <h5>${item.price * quantity} </h5>
       <h4>quantity:{quantity}</h4>
       <form>
         <input
@@ -38,7 +37,6 @@ const CartItem = ({ item, handleRemove, user, changeTotal }) => {
       <button
         className="btn"
         onClick={() => {
-          console.log(item.id);
           handleRemove(item.id);
         }}
       >

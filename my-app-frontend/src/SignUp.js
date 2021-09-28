@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
+import { NavContext } from "./Context";
+
 const SignUp = (addUser, changeUser) => {
   let history = useHistory();
   const [newUser, setNewUser] = useState("");
   const [newPass, setNewPass] = useState("");
+  const { closeSubMenu } = useContext(NavContext);
+
   const handleSignUp = () => {
     let newUserCreated = { user_name: newUser, password: newPass };
     fetch("http://localhost:9292/user", {
@@ -13,14 +17,13 @@ const SignUp = (addUser, changeUser) => {
     })
       .then((resp) => resp.json())
       .then((data) => {
-        console.log(data);
         changeUser(data);
         addUser(data);
       });
     // history.push("/");
   };
   return (
-    <div>
+    <div onMouseOver={closeSubMenu}>
       <h3 style={{ textAlign: "center", color: "white" }}>Sign Up</h3>
       <form className="login-cont" type="submit" onSubmit={handleSignUp}>
         <label htmlFor="username" name="name" id="name" className="label">

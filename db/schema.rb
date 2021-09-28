@@ -35,7 +35,6 @@ ActiveRecord::Schema.define(version: 2021_09_25_211843) do
     t.string "name"
     t.string "price"
     t.string "url"
-    t.integer "quantity"
   end
 
   create_table "users", force: :cascade do |t|

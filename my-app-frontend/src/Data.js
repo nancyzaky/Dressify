@@ -17,12 +17,6 @@ export const Data = [
 
 export const Links = [
   {
-    id: 1,
-    // icon: <FaHome className="icon" style={{ color: "#7eb1b3" }} />,
-    url: "/",
-    text: "Home",
-  },
-  {
     id: 2,
     // icon: <GiShirt className="icon" style={{ color: "#7eb1b3" }} />,
     url: "/clothes",
@@ -64,17 +58,34 @@ export const pageslinks = [
   {
     id: 1,
     page: "Clothing",
-    allpages: ["all", "tops", "shirtblouses", "trousers", "dresses"],
+    allpages: ["all", "tops", "shirtblouses", "trousers", "dresses", "jeans"],
   },
   {
     id: 2,
     page: "Accessories",
-    allpages: ["all", "trousers", "dresses"],
+    allpages: [
+      "all",
+      "bags",
+      "belts",
+      "jewellery",
+      "hairaccessories",
+      "sunglasses",
+      "gloves",
+      "hats",
+    ],
   },
   {
     id: 3,
     page: "Shoes",
-    allpages: ["all", "tops", "shirtblouses", "trousers", "dresses"],
+    allpages: [
+      "all",
+      "highheels",
+      "flats",
+      "sandals",
+      "sneakers",
+      "boots",
+      "slipon",
+    ],
   },
   {
     id: 4,
@@ -89,11 +100,45 @@ export const pageslinks = [
   {
     id: 6,
     page: "Face + Body",
-    allpages: ["all", "tops", "shirtblouses", "trousers", "dresses"],
+    allpages: ["all", "skincare", "bodywash", "scrubs", "haircare"],
   },
   {
     id: 7,
     page: "Decoration&furniture",
-    allpages: ["all", "tops", "shirtblouses", "trousers", "dresses"],
+    allpages: ["all", "", "", "", ""],
   },
 ];
+
+// ladies_newarrivals_all
+// ladies_newarrivals
+// ladies_newarrivals_clothes
+// ladies_newarrivals_shoesacc;
+// ladies_newarrivals_swimwear
+
+// ladies_all;
+// ladies_trendconcept;
+// ladies_linen;
+// ladies_trousers_wideleg;
+// ladies_modernclassic_shirtsblouse;
+// ladies_modernclassic_blazers;
+// ladies_premium_selection;
+// ladies_tops;
+// ladies_shirtsblouses;
+// ladies_trousers;
+// ladies_dresses;
+// ladies_loungewear;
+// ladies_basics;
+// ladies_jeans;
+// ladies_shorts;
+// ladies_skirts;
+// ladies_nightwear;
+// ladies_lingerie;
+// ladies_jacketscoats;
+// ladies_blazerswaistcoats;
+
+// ladies_shoes_pumps_highheels;
+// ladies_shoes_ballerinas_flats
+// ladies_shoes_sandals_espandrillos;
+// ladies_shoes_sneakers;
+// ladies_shoes_boots;
+// Ladies_shoes_slipon;

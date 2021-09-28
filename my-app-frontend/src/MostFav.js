@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FcPrevious, FcNext } from "react-icons/fc";
+import { GrPrevious, GrNext } from "react-icons/gr";
 const MostFav = () => {
   const [mostFav, setMostFav] = useState([]);
   const [index, setIndex] = useState(0);
@@ -31,7 +31,15 @@ const MostFav = () => {
   }, [index, mostFav]);
   return (
     <section className="most-fav">
-      <h3 style={{ color: "grey", textAlign: "center", paddingTop: "3rem" }}>
+      <h3
+        style={{
+          color: "black",
+          textAlign: "center",
+          paddingTop: "3rem",
+          fontFamily: "Snell Roundhand, cursive",
+          fontSize: "2rem",
+        }}
+      >
         Our Best Sellers
       </h3>
       <div className="center">
@@ -62,9 +70,8 @@ const MostFav = () => {
             backgroundColor: "white",
           }}
         > */}
-        <FcPrevious size="40px" />
-        {/* </button> */}
-        <FcNext size="40px" />
+        <GrPrevious size="40px" />
+        <GrNext size="40px" />
       </section>
     </section>
   );

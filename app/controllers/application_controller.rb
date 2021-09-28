@@ -9,7 +9,10 @@ class ApplicationController < Sinatra::Base
 
 
   post '/items' do
+     find_item =  Item.find_by(url:params[:url])
+    if find_item == nil
     Item.create(name:params[:name], url:params[:url], price:params[:price])
+    end
     Item.all.to_json
   end
 get "/items" do
@@ -107,7 +110,7 @@ patch"/user/:id/discount" do
   cart_active = find_user.carts.find_by(status:1)
 
  cart_active.update(discount:params[:discount])
-result = find_user.total_items
+result = cart_active.total_items
 result.to_json
 
 end
@@ -127,7 +130,9 @@ end
 patch "/user/:id/cart/:itemid" do
 find_user = User.find(params[:id])
  cart_active = find_user.carts.find_by(status:1)
-item_to_repeat = cart_active.items.find(params[:itemid])
+
+item_to_repeat = cart_active.cartitems.find_by(item_id:params[:itemid])
+
 item_to_repeat.update(quantity: params[:quantity])
 item_to_repeat.to_json
 end
@@ -169,10 +174,21 @@ end
 
 get "/total/:id" do
 user = User.find(params[:id])
-cart_active = user.carts.find_by(status:1)
 
-result = cart_active.total_items
+ cart_active = user.carts.find_by(status:1)
+#  sum = 0
+#   cart_active.map do |item|
+#     find_item = Item.find_by(id:item.item_id)
+#     sum+= item.quantity.to_f * find_item.price
+#   end
+
+ result = cart_active.total_items
 result.to_json
+end
+
+
+get"/cartitems" do
+  Cartitem.all.to_json(include: :item)
 end
 
 get "/user/:id/archived" do
@@ -189,14 +205,13 @@ end
 
 post "/user/:id/outfit" do
 user = User.find(params[:id])
-outfit_active = user.outfits.find_by(status:"active")
-pic= Item.create(url:params[:url])
-outfit_active << pic
-outfit_active.to_json
-
+item = Item.find_by(url:params[:url])
+drop = Draganddrop.create(user_id:params[:id], item_id:item.id)
+drop.to_json
 end
+
 get "/user/:id/outfit" do
   user = User.find(params[:id])
-  user.to_json(include: {outfits:{include: :items}})
+   user.draganddrops.to_json(include: :items_in_drop)
 end
 end
