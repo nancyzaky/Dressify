@@ -62,16 +62,14 @@ const MostFav = () => {
         })}
       </div>
       <section className="btn-cont">
-        {/* <button
-          className="btn"
-          style={{
-            marginRight: "8rem",
-            marginLeft: "-1rem",
-            backgroundColor: "white",
-          }}
-        > */}
-        <GrPrevious size="40px" />
-        <GrNext size="40px" />
+        <GrPrevious
+          size="40px"
+          style={{ paddingLeft: "8rem", paddingRight: "8rem" }}
+        />
+        <GrNext
+          size="40px"
+          style={{ paddingLeft: "8rem", paddingRight: "8rem" }}
+        />
       </section>
     </section>
   );

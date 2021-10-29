@@ -45,8 +45,8 @@ li {
   background-color: #353839;
   height: 4rem;
 
-  width: 100%;
-  padding-left: 5rem;
+  width: 97.2%;
+  /* padding-left: 5rem; */
   align-items: center;
 }
 .search-bar {
@@ -100,6 +100,7 @@ a {
   background-repeat: no-repeat;
   background-color: lightcoral;
   margin-top: -1.5rem;
+  width: 100%;
 }
 
 .submenu {
@@ -297,7 +298,10 @@ article.prevSlide {
 .btn-cont {
   position: relative;
   padding-top: 3rem;
-  left: 47%;
+  /* left: 47%; */
+  /* width: 50%; */
+  justify-content: center;
+  text-align: center;
 }
 .archived {
   height: max-content;

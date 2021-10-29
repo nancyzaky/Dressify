@@ -18,52 +18,107 @@ const Home = ({
   const [isloading, setIsLoading] = useState(true);
   const [allitems, setAllItems] = useState([]);
   const { closeSubMenu } = useContext(NavContext);
-  const handleData = (products) => {
-    products.forEach((item) => {
-      let newObj = {
-        name: item.name,
-        price: item.price.value,
-        url: item.images[0].url,
-      };
-      fetch(`http://localhost:9292/items`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newObj),
-      })
-        .then((resp) => resp.json())
-        .then((data) => console.log(data));
-    });
-  };
+  let menArr = [
+    "men_essentials_linen",
+    "men_newarrivals_clothes",
+    "men_newarrivals_shoesaccessories",
+    "men_premium_selection_trousers",
+    "men_premium_selection_shoes",
+    "men_premium_selection_shirts",
+    "men_premium_selection_jacketscoats",
+    "men_premium_selection_cardigansjumpers",
+    "men_premium_selection_accessories",
+    "men_basics",
+    "men_tshirtstanks",
+    "men_shirts",
+    "men_trousers",
+    "men_shorts",
+    "men_hoodiessweatshirts",
+    "men_nightwearloungewear",
+    "men_sport",
+    "men_jeans",
+    "cardigans-and-jumpers",
+    "men_blazerssuits",
+    "men_jacketscoats",
+    "men_swimweear",
+    "men_socks",
+    "men_shoes_sneakers",
+    "men_shoes_sandals_espandrillos",
+    "men_shoes_boots",
+    "men_shoes_dressed",
+    "men_shoes_loafers",
+    "men_accessories_ties_bowties_handkerchiefs",
+    "men_accessories_beltsandbraces",
+    "men_accessories_bags",
+    "men_accessories_sunglasses",
+    "men_accessories_jewellery",
+    "men_accessories_sportsaccessories",
+    "men_accessories_hatscaps",
+    "men_accessories_gloves",
+  ];
+
   const getdata = () => {
-    fetch(
-      `https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=150&categories=${
-        woman ? "ladies" : "men"
-      }_accessories_hats`,
-      {
-        method: "GET",
-        headers: {
-          "x-rapidapi-host": "apidojo-hm-hennes-mauritz-v1.p.rapidapi.com",
-          "x-rapidapi-key":
-            "036db7d1abmsh7d62560990e81f3p1b6c0djsnf0406b51760c",
-        },
-      }
-    )
-      .then((resp) => resp.json())
-      .then((data) => {
-        console.log(data);
-        data.results.forEach((item) => {
-          let newObj = {
-            name: item.name,
-            url: item.images[0].url,
-            price: item.price.value,
-          };
-          fetch(`http://localhost:9292/items`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(newObj),
+    menArr.forEach((word) => {
+      fetch(
+        `https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=150&categories=${word}`,
+        {
+          method: "GET",
+          headers: {
+            "x-rapidapi-host": "apidojo-hm-hennes-mauritz-v1.p.rapidapi.com",
+            "x-rapidapi-key":
+              "036db7d1abmsh7d62560990e81f3p1b6c0djsnf0406b51760c",
+          },
+        }
+      )
+        .then((resp) => resp.json())
+        .then((data) => {
+          console.log(data);
+          data.results.forEach((item) => {
+            console.log(word);
+            let newObj = {
+              name: item.name,
+              url: item.images[0].url,
+              price: item.price.value,
+              category: word,
+            };
+            console.log(newObj);
+            fetch(`http://localhost:9292/items`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(newObj),
+            });
           });
         });
-      });
+    });
+    // fetch(
+    //   `https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=150&categories=${
+    //     woman ? "ladies" : "men"
+    //   }_accessories_hats`,
+    //   {
+    //     method: "GET",
+    //     headers: {
+    //       "x-rapidapi-host": "apidojo-hm-hennes-mauritz-v1.p.rapidapi.com",
+    //       "x-rapidapi-key":
+    //         "036db7d1abmsh7d62560990e81f3p1b6c0djsnf0406b51760c",
+    //     },
+    //   }
+    // )
+    //   .then((resp) => resp.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //     data.results.forEach((item) => {
+    //       let newObj = {
+    //         name: item.name,
+    //         url: item.images[0].url,
+    //         price: item.price.value,
+    //       };
+    //       fetch(`http://localhost:9292/items`, {
+    //         method: "POST",
+    //         headers: { "Content-Type": "application/json" },
+    //         body: JSON.stringify(newObj),
+    //       });
+    //     });
+    //   });
   };
   const fetchUrl = () => {
     fetch(`http://localhost:9292/items`)
@@ -105,7 +160,7 @@ const Home = ({
               Welcome back {`${user.user_name}`}!
             </em>
           )}
-          <p></p>Get 10% off when you apply code "sinatra" on Check out!!
+          Get 10% off when you apply code "sinatra"on Check out!!
         </h1>
       </div>
       {isloading && <Loading />}
@@ -140,7 +195,7 @@ const Home = ({
           })}
         </ul>
       </div>
-      {/* <button onClick={() => getdata()}>data</button> */}
+      <button onClick={() => getdata()}>data</button>
       <MostFav product={products} />
     </>
   );
@@ -148,44 +203,41 @@ const Home = ({
 
 export default Home;
 
-// ladies_newarrivals_all
-// ladies_newarrivals
-// ladies_newarrivals_clothes
-// ladies_newarrivals_shoesacc;
-// ladies_newarrivals_swimwear
+// let namesArr = [
+//   "ladies_newarrivals_clothes",
+//   "ladies_newarrivals_shoesacc",
+//   "ladies_newarrivals_swimwear",
+//   "ladies_trendconcept",
+//   "ladies_linen",
+//   "ladies_trousers_wideleg",
+//   "ladies_modernclassic_shirtsblouse",
+//   "ladies_modernclassic_blazers",
+//   "ladies_premium_selection",
+//   "ladies_tops",
+//   "ladies_shirtsblouses",
+//   "ladies_trousers",
+//   "ladies_dresses",
+//   "ladies_loungewear",
+//   "ladies_basics",
+//   "ladies_jeans",
+//   "ladies_shorts",
+//   "ladies_skirts",
+//   "ladies_nightwear",
+//   "ladies_lingerie",
+//   "ladies_jacketscoats",
+//   "ladies_blazerswaistcoats",
+//   "ladies_shoes_pumps_highheels",
+//   "ladies_shoes_ballerinas_flats",
+//   "ladies_shoes_sandals_espandrillos",
+//   "ladies_shoes_sneakers",
+//   "ladies_shoes_boots",
+//   "Ladies_shoes_slipon",
+//   "ladies_accessories_bags",
+//   "ladies_accessories_belts",
+//   "ladies_accessories_jewellery",
+//   "ladies_accessories_hairaccessories",
+//   "ladies_accessories_sunglasses",
 
-// ladies_all;
-// ladies_trendconcept;
-// ladies_linen;
-// ladies_trousers_wideleg;
-// ladies_modernclassic_shirtsblouse;
-// ladies_modernclassic_blazers;
-// ladies_premium_selection;
-// ladies_tops;
-// ladies_shirtsblouses;
-// ladies_trousers;
-// ladies_dresses;
-// ladies_loungewear;
-// ladies_basics;
-// ladies_jeans;
-// ladies_shorts;
-// ladies_skirts;
-// ladies_nightwear;
-// ladies_lingerie;
-// ladies_jacketscoats;
-// ladies_blazerswaistcoats;
-
-// ladies_shoes_pumps_highheels;
-// ladies_shoes_ballerinas_flats
-// ladies_shoes_sandals_espandrillos;
-// ladies_shoes_sneakers;
-// ladies_shoes_boots;
-// Ladies_shoes_slipon;
-
-// ladies_accessories_bags;
-// ladies_accessories_belts;
-// ladies_accessories_jewellery;
-// ladies_accessories_hairaccessories;
-// ladies_accessories_sunglasses;
-// ladies_accessories_gloves;
-// ladies_accessories_hats;
+//   "ladies_accessories_gloves",
+//   "ladies_accessories_hats",
+// ];

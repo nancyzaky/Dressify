@@ -18,6 +18,9 @@ const Category = ({
   const [products, setProducts] = useState([]);
   let { word } = useParams();
   const fetchUrl = () => {
+    fetch(`http://localhost:9292/cat/${word}`)
+      .then((resp) => resp.json())
+      .then((data) => console.log(data));
     fetch(`http://localhost:9292/items`)
       .then((resp) => resp.json())
       .then((data) => {

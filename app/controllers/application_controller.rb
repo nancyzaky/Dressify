@@ -11,12 +11,18 @@ class ApplicationController < Sinatra::Base
   post '/items' do
      find_item =  Item.find_by(url:params[:url])
     if find_item == nil
-    Item.create(name:params[:name], url:params[:url], price:params[:price])
+    Item.create(name:params[:name], url:params[:url], price:params[:price], category:params[:category])
     end
     Item.all.to_json
   end
 get "/items" do
    Item.all.to_json
+end
+
+
+get "/cat/:word" do
+items = Item.where(category: params[:word]).to_json
+binding.pry
 end
 get "/item/:id" do
   Item.find(params[:id]).to_json
@@ -197,6 +203,15 @@ user_carts = user.carts.where(status: 2)
 user_carts.to_json(include: :items)
 end
 
+post "/user/:id/pic" do
+  user = User.find(params[:id])
+  user_carts = user.carts.where(status: 1)
+  pic = Item.find_by(url:params[:url])
+  cart_item_new = Cartitem.create(user_id:params[:id], item_id:pic.id)
+  user_carts<<cart_item_new
+  cart_item_new.to_json
+
+end
 get "/user/:id/archived/desc" do
 user = User.find(params[:id])
 user_carts = user.carts.where(status: 2)

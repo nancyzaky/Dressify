@@ -20,6 +20,23 @@ const Modal = ({ closeModal, user }) => {
     accept: "image",
     drop: (item) => addImg(item),
   }));
+  const filterPics = (url) => {
+    let collectionNew = collection.filter((item) => {
+      return item.url !== url;
+    });
+    setCollection(collectionNew);
+  };
+  const handleDrag = () => {
+    collection.forEach((pic) => {
+      fetch(`http://localhost:9292/user/${user.id}/pic`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url: pic.url }),
+      })
+        .then((resp) => resp.json())
+        .then((data) => console.log(data));
+    });
+  };
   return (
     <>
       <aside className="modal" ref={drop}>
@@ -27,7 +44,13 @@ const Modal = ({ closeModal, user }) => {
           <AiOutlineClose onClick={closeModal} />
         </span>
         {collection.map((item) => {
-          return <Picture pic={item.url} drags={drags} />;
+          console.log(item);
+          return (
+            <Picture pic={item.url} drags={drags} filterPics={filterPics} />
+          );
+          <button
+            style={{ marginTop: "20rem", color: "white", borderColor: "white" }}
+          ></button>;
         })}
         <button
           className="btn"
@@ -38,9 +61,9 @@ const Modal = ({ closeModal, user }) => {
         >
           Create Outfit
         </button>
-        <button
-          style={{ marginTop: "20rem", color: "white", borderColor: "white" }}
-        ></button>
+        <button className="btn" onClick={handleDrag}>
+          Add all to cart
+        </button>
       </aside>
     </>
   );
