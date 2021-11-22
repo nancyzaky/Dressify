@@ -1,4 +1,4 @@
-import React, { useState, userRef } from "react";
+import React, { useState, userRef, useEffect } from "react";
 import ScrollTo from "./ScrollTo";
 import { AiOutlineClose } from "react-icons/ai";
 import Picture from "./Picture";
@@ -6,6 +6,7 @@ import { useDrop } from "react-dnd";
 const Modal = ({ closeModal, user }) => {
   const [drags, setDrag] = useState(false);
   const [collection, setCollection] = useState([]);
+
   const addImg = (url) => {
     setCollection((collection) => [...collection, url]);
     fetch(`http://localhost:9292/user/${user.id}/outfit`, {
