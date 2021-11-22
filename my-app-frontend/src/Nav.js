@@ -15,6 +15,7 @@ const Nav = ({
   emptyCart,
   filterSearch,
   user,
+  setUser,
 }) => {
   const { openSubMenu, closeSubMenu, subMenuOpen } = useContext(NavContext);
   const handleHover = (e) => {
@@ -22,7 +23,7 @@ const Nav = ({
     let loc = e.target.getBoundingClientRect();
     let center = (loc.left + loc.right) / 2;
     let bottom = loc.bottom - 16;
-    openSubMenu({ center, bottom }, text);
+    openSubMenu({ center, bottom }, text, woman);
   };
   const handleMouseOut = (e) => {
     if (!e.target.classList.contains("cat-links-list")) {
@@ -39,7 +40,7 @@ const Nav = ({
             </li>
             <li
               className={`${
-                woman
+                !woman
                   ? "profile-icons-list gender"
                   : "profile-icons-list gender set"
               }`}
@@ -57,7 +58,7 @@ const Nav = ({
             </li>
             <li
               className={`${
-                woman
+                !man
                   ? "profile-icons-list gender"
                   : "profile-icons-list gender set"
               }`}
@@ -106,6 +107,9 @@ const Nav = ({
                 color: "pink",
                 fontWeight: "bold",
                 fontSize: "32px",
+              }}
+              onClick={() => {
+                setUser({});
               }}
             >
               {/* <FiLogOut className="icon" style={{ marginLeft: "6rem" }} />{" "} */}
