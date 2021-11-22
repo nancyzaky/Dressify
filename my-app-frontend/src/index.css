@@ -101,6 +101,7 @@ a {
   background-color: lightcoral;
   margin-top: -1.5rem;
   width: 100%;
+  overflow: scroll;
 }
 
 .submenu {
@@ -169,21 +170,18 @@ a {
 .modal {
   background-color: white;
   box-shadow: var(--dark-shadow);
-  overflow-y: scroll;
+  overflow: scroll;
   position: fixed;
-
-  overflow-x: hidden;
-  width: 200px;
-  height: 800px;
-  overflow-y: scroll;
-  overflow-x: scroll;
-  left: 90%;
+  width: 300px;
+  min-height: 200vh;
+  max-height: fit-content;
+  top: 0;
+  left: 92%;
   transform: translateX(-50%);
   z-index: 3;
   padding: 2rem;
   padding-right: 1rem;
   border-radius: var(--radius);
-  transition: var(--transition);
   transition-delay: 0.1s;
   transition-duration: 0.4s;
   padding-bottom: 3rem;
@@ -217,7 +215,7 @@ a {
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
   border-bottom: 6px solid white;
-  margin-left: 3.5rem;
+  margin-left: 9rem;
   margin-top: -6.5px;
 }
 
@@ -229,7 +227,7 @@ a {
   margin-bottom: 1rem;
   margin-left: 2rem;
   /* background: rgba(21, 159, 201, 0.05); */
-  box-shadow: 0px 4px 4px rgba(138, 133, 133, 0.25);
+  box-shadow: 0px 4px 4px rgba(236, 233, 233, 0.25);
   font-weight: bolder;
   color: lightblue;
   background-color: grey;
