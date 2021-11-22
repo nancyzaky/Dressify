@@ -22,7 +22,6 @@ end
 
 get "/cat/:word" do
 items = Item.where(category: params[:word]).to_json
-binding.pry
 end
 get "/item/:id" do
   Item.find(params[:id]).to_json
@@ -217,6 +216,7 @@ user = User.find(params[:id])
 user_carts = user.carts.where(status: 2)
 user_carts.order("created_at DESC").to_json(include: :items)
 end
+
 
 post "/user/:id/outfit" do
 user = User.find(params[:id])
