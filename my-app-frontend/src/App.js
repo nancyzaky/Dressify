@@ -86,19 +86,20 @@ function App() {
     setWoman(true);
     setMan(false);
   };
+
+  const showModal = () => {
+    setShowModal(true);
+  };
   const switchMan = () => {
     setWoman(false);
     setMan(true);
-  };
-  const showModal = () => {
-    setShowModal(true);
   };
   const closeModal = () => {
     setShowModal(false);
   };
   const fetchUrl = () => {
     console.log(user);
-    if (user) {
+    if (user.name) {
       fetch(`http://localhost:9292/user/${user.id}/cart`)
         .then((resp) => resp.json())
         .then((data) => {
@@ -152,8 +153,9 @@ function App() {
           emptyCart={emptyCart}
           filterSearch={filterSearch}
           user={user}
+          setUser={setUser}
         />
-        <SubMenu />
+        <SubMenu woman={woman} />
         {itemExistModal && <ExistModal />}
         {modal && <Modal closeModal={closeModal} user={user} />}
         <Switch>
