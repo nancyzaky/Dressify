@@ -213,6 +213,7 @@ function App() {
               deleteFav={deleteFav}
               fav={fav}
               search={search}
+              filterSearch={filterSearch}
             />
           </Route>
         </Switch>
