@@ -2,6 +2,8 @@
 
 ## Introduction
 Dressify is a shopping web app built for school demo purposes. 
+
+
 Basic API with Sinatra and Active Record using React as the front end.
 
 
