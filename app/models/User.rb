@@ -4,7 +4,6 @@ has_many :cartitems, through: :carts
 has_many :items_in_cart, through: :cartitems, source: :item
 has_many :favorites
 has_many :favorite_items, through: :favorites, source: :item
-# has_many :draganddrops
 # has_many :items_in_drop, through: :draganddrops, source: :item
   enum status: {
     active: 1,
