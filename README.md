@@ -1,7 +1,7 @@
 
 
 ## Introduction
-Dressify is a Demo shopping web app built for study purposes. 
+Dressify is a shopping web app built for school demo purposes. 
 Basic API with Sinatra and Active Record using React as the front end.
 
 
