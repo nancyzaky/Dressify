@@ -38,7 +38,6 @@ const Cart = ({ user, cart, deleteFromCart, discount, emptyCart }) => {
     fetch(`http://localhost:9292/total/${user.id}`)
       .then((resp) => resp.json())
       .then((data) => {
-        console.log(data);
         setTot((tot) => {
           return data;
         });
@@ -53,7 +52,6 @@ const Cart = ({ user, cart, deleteFromCart, discount, emptyCart }) => {
       <div className="products">
         <ul>
           {cart.map((item) => {
-            console.log(item);
             return (
               <CartItem
                 item={item}

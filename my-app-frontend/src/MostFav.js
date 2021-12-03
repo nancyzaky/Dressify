@@ -7,7 +7,6 @@ const MostFav = () => {
     fetch("http://localhost:9292/bestsellers")
       .then((resp) => resp.json())
       .then((data) => {
-        console.log(Object.keys(data));
         setMostFav(Object.keys(data));
       });
   };

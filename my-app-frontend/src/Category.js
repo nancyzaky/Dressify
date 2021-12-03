@@ -23,7 +23,6 @@ const Category = ({
       .then((resp) => resp.json())
       .then((data) => {
         setProducts(data);
-        console.log(data);
       });
   };
   useEffect(() => {

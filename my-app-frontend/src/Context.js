@@ -8,7 +8,6 @@ const NavProvider = ({ children }) => {
   const [links, setLinks] = useState({ page: "", allpages: [] });
   const [subMenuOpen, setSubMenuOpen] = useState(false);
   const openSubMenu = (obj, cont, woman) => {
-    console.log(obj);
     let result;
     if (woman) {
       result = pageslinks.find((item) => item.page === cont);

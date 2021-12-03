@@ -33,9 +33,7 @@ const Modal = ({ closeModal, user }) => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ url: pic.url }),
-      })
-        .then((resp) => resp.json())
-        .then((data) => console.log(data));
+      }).then((resp) => resp.json());
     });
   };
   return (
@@ -45,7 +43,6 @@ const Modal = ({ closeModal, user }) => {
           <AiOutlineClose onClick={closeModal} />
         </span>
         {collection.map((item) => {
-          console.log(item);
           return (
             <Picture pic={item.url} drags={drags} filterPics={filterPics} />
           );

@@ -8,9 +8,7 @@ const CartItem = ({ item, handleRemove, user, changeTotal }) => {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ quantity: quantity }),
-    })
-      .then((resp) => resp.json())
-      .then((data) => console.log(data));
+    }).then((resp) => resp.json());
     changeTotal();
   };
   useEffect(() => {

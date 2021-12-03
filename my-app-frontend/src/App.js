@@ -73,7 +73,6 @@ function App() {
     }
   };
   const deleteFromCart = (productId) => {
-    console.log(productId);
     let newCart = cart.filter((item) => {
       return item.id !== productId;
     });
@@ -98,13 +97,11 @@ function App() {
     setShowModal(false);
   };
   const fetchUrl = () => {
-    console.log(user);
     if (user.name) {
       fetch(`http://localhost:9292/user/${user.id}/cart`)
         .then((resp) => resp.json())
         .then((data) => {
           if (data) {
-            console.log(data);
             setCart(data.items);
           } else {
             setCart([]);
@@ -118,11 +115,10 @@ function App() {
           }
         });
 
-      fetch(`http://localhost:9292/user/${user.id}/outfit`)
-        .then((resp) => resp.json())
-        .then((data) => console.log(data));
+      fetch(`http://localhost:9292/user/${user.id}/outfit`).then((resp) =>
+        resp.json()
+      );
     } else {
-      console.log("none");
       setFav([]);
       setCart([]);
     }

@@ -19,10 +19,7 @@ const LogIn = ({ changeUser, allUsers, addUser }) => {
     if (result.length > 0) {
       changeUser(result[0]);
 
-      //   fetch("http://localhost:9292/user",
-
       setLogged(true);
-      console.log(allUsers);
       history.push("/");
     } else {
       setSigUp(true);

@@ -10,7 +10,6 @@ const CheckOut = ({ user }) => {
     fetch(`http://localhost:9292/user/${user.id}/archived`)
       .then((resp) => resp.json())
       .then((data) => {
-        console.log(data);
         setArchived(data);
       });
   }, []);
@@ -25,19 +24,16 @@ const CheckOut = ({ user }) => {
         name=""
         form=""
         onChange={(e) => {
-          console.log(e.target.value);
           if (e.target.value === "Recent") {
             fetch(`http://localhost:9292/user/${user.id}/archived/desc`)
               .then((resp) => resp.json())
               .then((data) => {
-                console.log(data);
                 setArchived(data);
               });
           } else if ((e.target.value = "oldest")) {
             fetch(`http://localhost:9292/user/${user.id}/archived`)
               .then((resp) => resp.json())
               .then((data) => {
-                console.log(data);
                 setArchived(data);
               });
           }
