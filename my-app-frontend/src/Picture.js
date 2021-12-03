@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { useDrag } from "react-dnd";
 const Picture = ({ pic, drags, filterPics }) => {
   const handleClick = () => {
-    if (drag) {
+    if (drags) {
       filterPics(pic);
     }
   };

@@ -7,7 +7,6 @@ const Product = ({ item, showModal, user, addToCart, addFav, fav }) => {
       return product.id === item.id;
     });
     if (result.length === 0) {
-      // console.log(item.id, user.id);
       fetch(`http://localhost:9292/user/${user.id}/favorite`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -41,15 +40,7 @@ const Product = ({ item, showModal, user, addToCart, addFav, fav }) => {
       />
       <h4>{item.name}</h4>
       <h5>${item.price}</h5>
-      {/* <ul style={{ display: "grid" }}>
-        {item.rgbColors.map((color) => {
-          return (
-            <li style={{ display: "inline" }}>
-              <span>{color}</span>
-            </li>
-          );
-        })}
-      </ul> */}
+
       <button className="btn" onClick={showModal}>
         Drag And Drop
       </button>
