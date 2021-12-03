@@ -4,8 +4,6 @@
 Dressify is a shopping web app built for school demo purposes. 
 
 
-Basic API with Sinatra and Active Record using React as the front end.
-
 
 -a Sinatra API backend that uses
 **Active Record** to access and persist data in a database used by a separate **React frontend** that interacts with the database via the API.
