@@ -60,8 +60,8 @@ const LogIn = ({ changeUser, allUsers, addUser }) => {
             </label>
             <br></br>
             <input
+              type="password"
               className="login"
-              type="text"
               placeholder="Enter password"
               value={passwordVal}
               onChange={(e) => {

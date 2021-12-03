@@ -36,7 +36,7 @@ const Nav = ({
         <div className="profile-icons-main">
           <ul className="profile-icons-ul">
             <li className="profile-icons-list">
-              <h1>SHOP</h1>
+              <h1>DRESSIFY</h1>
             </li>
             <li
               className={`${
@@ -120,30 +120,37 @@ const Nav = ({
         </div>
 
         <div className="category-links-container">
-          <ul className="category-links">
-            <Link
-              to="/"
-              style={{
-                paddingLeft: "1rem",
-                paddingRight: "2.5rem",
-                color: "pink",
-              }}
-            >
-              Home
-            </Link>
+          <ul className="category-links" style={{}}>
+            <li style={{ width: "8rem" }}>
+              <Link
+                to="/"
+                style={{
+                  paddingLeft: "1rem",
+                  paddingRight: "2.5rem",
+                  color: "pink",
+                }}
+              >
+                Home
+              </Link>
+            </li>
             {Links.map((link) => {
               return (
-                <Link
-                  to={link.url}
+                <li
+                  style={{
+                    width: "15rem",
+                    justifyContent: "center",
+                    textAlign: "center",
+                  }}
                   key={link.id}
                   className="cat-links-list"
                   onMouseOver={handleHover}
                   style={{
                     height: "3rem",
+                    paddingLeft: "2rem",
                   }}
                 >
                   {link.text}
-                </Link>
+                </li>
               );
             })}
           </ul>

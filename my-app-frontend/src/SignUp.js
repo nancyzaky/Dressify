@@ -1,9 +1,7 @@
 import React, { useState, useContext } from "react";
-import { useHistory } from "react-router-dom";
 import { NavContext } from "./Context";
 
 const SignUp = (addUser, changeUser) => {
-  let history = useHistory();
   const [newUser, setNewUser] = useState("");
   const [newPass, setNewPass] = useState("");
   const { closeSubMenu } = useContext(NavContext);
@@ -20,7 +18,7 @@ const SignUp = (addUser, changeUser) => {
         changeUser(data);
         addUser(data);
       });
-    // history.push("/");
+    // history.push("/account");
   };
   return (
     <div onMouseOver={closeSubMenu}>
@@ -45,6 +43,7 @@ const SignUp = (addUser, changeUser) => {
         <br></br>
         <input
           className="login"
+          type="password"
           placeholder="Enter User Password"
           value={newPass}
           onChange={(e) => {
