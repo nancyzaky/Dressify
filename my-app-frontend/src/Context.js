@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { pageslinks } from "./Data";
+import { pageslinks, pagesMenlinks } from "./Data";
 
 const NavContext = React.createContext();
 
@@ -7,8 +7,15 @@ const NavProvider = ({ children }) => {
   const [location, setLocation] = useState({});
   const [links, setLinks] = useState({ page: "", allpages: [] });
   const [subMenuOpen, setSubMenuOpen] = useState(false);
-  const openSubMenu = (obj, cont) => {
-    const result = pageslinks.find((item) => item.page === cont);
+  const openSubMenu = (obj, cont, woman) => {
+    console.log(obj);
+    let result;
+    if (woman) {
+      result = pageslinks.find((item) => item.page === cont);
+    } else {
+      result = pagesMenlinks.find((item) => item.page === cont);
+    }
+    // const result = pageslinks.find((item) => item.page === cont);
     setLocation(obj);
     setLinks(result);
     setSubMenuOpen(true);
