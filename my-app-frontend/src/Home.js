@@ -90,35 +90,6 @@ const Home = ({
           });
         });
     });
-    // fetch(
-    //   `https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=150&categories=${
-    //     woman ? "ladies" : "men"
-    //   }_accessories_hats`,
-    //   {
-    //     method: "GET",
-    //     headers: {
-    //       "x-rapidapi-host": "apidojo-hm-hennes-mauritz-v1.p.rapidapi.com",
-    //       "x-rapidapi-key":
-    //         "036db7d1abmsh7d62560990e81f3p1b6c0djsnf0406b51760c",
-    //     },
-    //   }
-    // )
-    //   .then((resp) => resp.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //     data.results.forEach((item) => {
-    //       let newObj = {
-    //         name: item.name,
-    //         url: item.images[0].url,
-    //         price: item.price.value,
-    //       };
-    //       fetch(`http://localhost:9292/items`, {
-    //         method: "POST",
-    //         headers: { "Content-Type": "application/json" },
-    //         body: JSON.stringify(newObj),
-    //       });
-    //     });
-    //   });
   };
   const fetchUrl = () => {
     fetch(`http://localhost:9292/items`)
@@ -126,7 +97,7 @@ const Home = ({
       .then((data) => {
         console.log(data);
         setIsLoading(false);
-        setProducts(data.slice(0, 30));
+        setProducts(data.slice(120, 170));
         setAllItems(data);
       });
   };
@@ -155,10 +126,13 @@ const Home = ({
           }}
         >
           {user.user_name && (
-            <em style={{ color: "grey", paddingLeft: "15rem" }}>
-              {" "}
-              Welcome back {`${user.user_name}`}!
-            </em>
+            <>
+              <em style={{ color: "grey", paddingLeft: "18rem" }}>
+                {" "}
+                Welcome back {`${user.user_name} `}!
+              </em>
+              <br></br>
+            </>
           )}
           Get 10% off when you apply code "sinatra"on Check out!!
         </h1>
@@ -195,49 +169,9 @@ const Home = ({
           })}
         </ul>
       </div>
-      <button onClick={() => getdata()}>data</button>
       <MostFav product={products} />
     </>
   );
 };
 
 export default Home;
-
-// let namesArr = [
-//   "ladies_newarrivals_clothes",
-//   "ladies_newarrivals_shoesacc",
-//   "ladies_newarrivals_swimwear",
-//   "ladies_trendconcept",
-//   "ladies_linen",
-//   "ladies_trousers_wideleg",
-//   "ladies_modernclassic_shirtsblouse",
-//   "ladies_modernclassic_blazers",
-//   "ladies_premium_selection",
-//   "ladies_tops",
-//   "ladies_shirtsblouses",
-//   "ladies_trousers",
-//   "ladies_dresses",
-//   "ladies_loungewear",
-//   "ladies_basics",
-//   "ladies_jeans",
-//   "ladies_shorts",
-//   "ladies_skirts",
-//   "ladies_nightwear",
-//   "ladies_lingerie",
-//   "ladies_jacketscoats",
-//   "ladies_blazerswaistcoats",
-//   "ladies_shoes_pumps_highheels",
-//   "ladies_shoes_ballerinas_flats",
-//   "ladies_shoes_sandals_espandrillos",
-//   "ladies_shoes_sneakers",
-//   "ladies_shoes_boots",
-//   "Ladies_shoes_slipon",
-//   "ladies_accessories_bags",
-//   "ladies_accessories_belts",
-//   "ladies_accessories_jewellery",
-//   "ladies_accessories_hairaccessories",
-//   "ladies_accessories_sunglasses",
-
-//   "ladies_accessories_gloves",
-//   "ladies_accessories_hats",
-// ];
