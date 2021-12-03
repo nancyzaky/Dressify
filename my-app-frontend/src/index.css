@@ -6,7 +6,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #353839;
-  position: relative;
+  /* position: fixed; */
   width: 100%;
   overflow-y: scroll;
 }
@@ -17,7 +17,7 @@ code {
 }
 .navbar {
   top: 0;
-  margin-top: 0;
+  margin-top: -1rem;
   background-color: grey;
   color: white;
   height: 9rem;
@@ -66,13 +66,15 @@ li {
 .category-links {
   background-color: grey;
   height: 2rem;
+  display: flex;
 }
 
-.category-links-container {
+/* .category-links-container {
   margin-bottom: 2rem;
   display: inline;
   width: 100%;
-}
+  /* border: 0.2rem solid red; */
+/* } */
 
 .cat-links-list {
   display: inline-block;
@@ -96,18 +98,18 @@ a {
 .home_bg {
   background-image: url("https://st4.depositphotos.com/12985790/20643/i/600/depositphotos_206432966-stock-photo-attractive-fashionable-woman-posing-white.jpg");
 
-  height: 400px;
+  height: 410px;
   background-repeat: no-repeat;
   background-color: lightcoral;
   margin-top: -1.5rem;
-  width: 100%;
+  width: 101%;
   overflow: scroll;
 }
 
 .submenu {
   background-color: white;
   position: absolute;
-  left: 50%;
+  /* left: 50%; */
   transform: translateX(-50%);
   z-index: 3;
   display: none;
@@ -117,6 +119,10 @@ a {
   border-radius: var(--radius);
   transition: var(--transition);
   transition-duration: 0.8s;
+  border-radius: 0.2rem;
+  height: auto;
+  min-height: 30vh;
+  min-width: 42vh;
 }
 .submenu.show {
   display: block;
@@ -323,5 +329,6 @@ article.prevSlide {
   color: lightblue;
   padding-bottom: 1rem;
   font-size: smaller;
-  text-align: start;
+  /* text-align: center; */
+  padding: 10px;
 }
