@@ -57,58 +57,26 @@ const Home = ({
     "men_accessories_gloves",
   ];
 
-  const getdata = () => {
-    menArr.forEach((word) => {
-      fetch(
-        `https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=150&categories=${word}`,
-        {
-          method: "GET",
-          headers: {
-            "x-rapidapi-host": "apidojo-hm-hennes-mauritz-v1.p.rapidapi.com",
-            "x-rapidapi-key":
-              "036db7d1abmsh7d62560990e81f3p1b6c0djsnf0406b51760c",
-          },
-        }
-      )
-        .then((resp) => resp.json())
-        .then((data) => {
-          console.log(data);
-          data.results.forEach((item) => {
-            console.log(word);
-            let newObj = {
-              name: item.name,
-              url: item.images[0].url,
-              price: item.price.value,
-              category: word,
-            };
-            console.log(newObj);
-            fetch(`http://localhost:9292/items`, {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(newObj),
-            });
-          });
-        });
-    });
-  };
   const fetchUrl = () => {
     fetch(`http://localhost:9292/items`)
       .then((resp) => resp.json())
       .then((data) => {
-        console.log(data);
         setIsLoading(false);
-        setProducts(data.slice(120, 170));
-        setAllItems(data);
+        if (data) {
+          setProducts(data.slice(120, 170));
+          setAllItems(data);
+        }
       });
   };
   useEffect(() => {
-    let wordLen = search.length;
-    let newProductsArr = allitems.filter((item) => {
-      return item.name.slice(0, wordLen).toLowerCase() === search;
-    });
-    console.log(newProductsArr);
-    setProducts(newProductsArr);
-  }, [search]);
+    if (search && search.split("").length) {
+      let wordLen = search.length;
+      let newProductsArr = allitems.filter((item) => {
+        return item.name.slice(0, wordLen).toLowerCase() === search;
+      });
+      setProducts(newProductsArr);
+    }
+  }, []);
   useEffect(() => {
     fetchUrl();
     setIsLoading(true);
