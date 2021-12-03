@@ -1,9 +1,11 @@
-Dressify is a Demo shopping web app built for study purposes.
-Basic API with Sinatra and Active Record using React as the front end.
+
 
 ## Introduction
+Dressify is a Demo shopping web app built for study purposes. 
+Basic API with Sinatra and Active Record using React as the front end.
 
-a Sinatra API backend that uses
+
+-a Sinatra API backend that uses
 **Active Record** to access and persist data in a database used by a separate **React frontend** that interacts with the database via the API.
 
 ### Backend Setup
